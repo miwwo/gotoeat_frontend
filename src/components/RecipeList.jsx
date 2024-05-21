@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Recipe from './Recipe';
 import {listRecipes} from "../sevices/RecipeService";
 import {useSelector} from "react-redux";
+import RecipeCreateForm from "./RecipeComponents/RecipeCreateForm";
+
 
 const RecipeList = () => {
     const { token } = useSelector((state) => state.user);
@@ -37,6 +39,8 @@ const RecipeList = () => {
 
     return (
         <div className="container">
+
+           <RecipeCreateForm></RecipeCreateForm>
             <h1>Список рецептов</h1>
             <ul>
                 {recipes.map(recipe => (

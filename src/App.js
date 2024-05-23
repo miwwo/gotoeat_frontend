@@ -14,7 +14,7 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Nav name={user.username} setName={user.username}/>
+                <Nav email={user.email} setEmail={user.email}/>
 
                 <main>
                     <Routes>
@@ -22,7 +22,7 @@ function App() {
                             path="/"
                             element={
                                 <PrivateRoute>
-                                    <Home username={user.username}/>
+                                    <Home email={user.email}/>
                                 </PrivateRoute>
                             }
                         />

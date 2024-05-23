@@ -12,7 +12,7 @@ const Nav = (props) => {
 
     let nav_bar;
 
-    if (props.name === null) {
+    if (props.email === null) {
         nav_bar = (
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 <li className="nav-item active">
@@ -28,7 +28,7 @@ const Nav = (props) => {
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 <li className="nav-item active">
                     {/*<Link to="/login" className="nav-link">{props.name}</Link>*/}
-                    <Link to="/login" className="nav-link" onClick={logout}>{props.name} Logout</Link>
+                    <Link to="/login" className="nav-link" onClick={logout}>{props.email} Logout</Link>
                 </li>
             </ul>
         )

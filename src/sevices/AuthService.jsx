@@ -4,14 +4,14 @@ import axios from "axios";
 const REST_API_BASE_URL='http://localhost:8080/auth';
 
 
-export const signUp = async (username, password) => {
+export const signUp = async (email, password) => {
     try {
         const response = await axios({
             method: 'post',
             url: REST_API_BASE_URL + '/signup',
             headers: {'Content-Type': 'application/json'},
             data: JSON.stringify({
-                username,
+                email,
                 password
             })
         });
@@ -28,14 +28,14 @@ export const signUp = async (username, password) => {
     }
 }
 
-export const login = async (username, password) => {
+export const login = async (email, password) => {
     try{
         const response = await axios({
             method: 'post',
             url: REST_API_BASE_URL + '/login',
             headers: {'Content-Type': 'application/json'},
             data: JSON.stringify({
-                username,
+                email,
                 password
             })
         });

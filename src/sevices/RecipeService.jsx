@@ -45,3 +45,24 @@ export const listIngredients = async (token) => {
     }
 };
 
+
+export const createRecipe = async (token, recipe) => {
+    try {
+        const response = await axios({
+            method: 'post',
+            url: REST_API_BASE_URL + "/recipes",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            data: recipe,
+        });
+        if (response.status===201) {
+            return "Рецепт успешно создан"
+        }
+    } catch (e) {
+        if (e.status!==201)
+            return "Error creating recipe"
+    }
+}
+

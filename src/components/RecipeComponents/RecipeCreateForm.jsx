@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, Button, FormControl } from '@material-ui/core';
+import {TextField, Button, FormControl, Checkbox, FormControlLabel} from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import {listIngredients} from "../../sevices/RecipeService"
+import { createRecipe, listIngredients} from "../../sevices/RecipeService"
 import { useSelector } from "react-redux";
 import "./RecipeCreateForm.css";
 import { FaMinus } from "react-icons/fa";
 
-const RecipeCreateForm = ({ trigger, setTrigger }) => {
+const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
     const { token } = useSelector((state) => state.user);
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [recipeIngredients, setRecipeIngredients] = useState([]);
+    const [visible, setVisible] = useState(false);
+
 
     const [error, setError] = useState(null);
     const [formErrors, setFormErrors] = useState({});
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchIngredients = async () => {
@@ -25,12 +26,10 @@ const RecipeCreateForm = ({ trigger, setTrigger }) => {
                 setIngredients(response);
             } catch (error) {
                 setError(error.message);
-            } finally {
-                setLoading(false);
             }
         };
         fetchIngredients();
-    }, [token]);
+    }, []);
 
     useEffect(() => {
      setFormErrors({})
@@ -84,29 +83,29 @@ const RecipeCreateForm = ({ trigger, setTrigger }) => {
         return isValid;
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
         if (!validateInput()) {
+            console.log("Validation failed");
             return;
         }
         const recipe = {
             name,
             description,
+            visible,
             ingredientsQuantity: recipeIngredients.map(recipeIngredient => ({
                 ingredient: { id: recipeIngredient.ingredient.id },
                 quantity: recipeIngredient.quantity
             }))
         };
-        console.log(recipe);
-        // Здесь отправляете ваш запрос с recipe
+        const response =  await createRecipe(token, recipe);
+        if (response === "Рецепт успешно создан") {
+            recipeCreateHandle(true);
+            console.log("Рецепт успешно создан")
+            setTrigger(false);
+        } else {
+            console.log("Error creating recipe");
+        }
     };
-
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
 
     return trigger ? (
         <div className="popupForm">
@@ -136,6 +135,7 @@ const RecipeCreateForm = ({ trigger, setTrigger }) => {
                                 <Autocomplete
                                     options={ingredients}
                                     getOptionLabel={(option) => option.name}
+                                    getOptionSelected={(option, value) => option.id === value.id}
                                     onChange={(event, value) => handleIngredientChange(index, value)}
                                     renderInput={(params) => (
                                         <TextField
@@ -155,7 +155,7 @@ const RecipeCreateForm = ({ trigger, setTrigger }) => {
                                         handleQuantityChange(index, value);
                                     }
                                 }}
-                                style={{ width: '10%', marginRight: '10px', marginTop:'16px'}}
+                                style={{ width: '25%', marginRight: '10px', marginTop:'16px'}}
                                 error={!!formErrors[`quantity${index}`]}
                                 helperText={formErrors[`quantity${index}`]}
                                 inputProps={{ pattern: "[0-9]*" }}
@@ -166,10 +166,17 @@ const RecipeCreateForm = ({ trigger, setTrigger }) => {
                             </Button>
                         </div>
                     ))}
+                    {formErrors.listIngredients && <p style={{ color: 'red'}}>{formErrors.listIngredients}</p>}
+
                     <Button variant="contained" color="primary" onClick={handleAddIngredient}>
                         Добавить ингредиент
                     </Button>
-                    {formErrors.listIngredients && <p>{formErrors.listIngredients}</p>}
+                    <br></br>
+                    <FormControlLabel
+                        control={<Checkbox checked={visible} onChange={() => setVisible(!visible)} />}
+                        label="Публичный"
+                    />
+                    <br></br>
                     <Button variant="contained" color="primary" onClick={handleSubmit}>
                         Создать рецепт
                     </Button>

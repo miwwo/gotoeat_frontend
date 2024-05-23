@@ -27,6 +27,7 @@ const Nav = (props) => {
         nav_bar = (
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 <li className="nav-item active">
+                    {/*<Link to="/login" className="nav-link">{props.name}</Link>*/}
                     <Link to="/login" className="nav-link" onClick={logout}>{props.name} Logout</Link>
                 </li>
             </ul>

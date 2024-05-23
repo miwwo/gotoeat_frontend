@@ -15,9 +15,15 @@ const RecipeList = () => {
     const [recipeCreateForm, setRecipeCreateForm] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
+    const [recipeCreated, setRecipeCreated] = useState();
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const handleRecipeCreate = (isRecipeCreated) =>{
+        setRecipeCreated(isRecipeCreated);
+    }
+
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -32,7 +38,7 @@ const RecipeList = () => {
         };
 
         fetchRecipes();
-    }, [token]);
+    }, [token, recipeCreated]);
 
 
     const handleSearch = (event) => {
@@ -57,8 +63,11 @@ const RecipeList = () => {
 
     return (
         <div className="container">
-            <button onClick={() => setRecipeCreateForm(true)}>Создать рецепт</button>
-            <RecipeCreateForm trigger = {recipeCreateForm} setTrigger={setRecipeCreateForm}></RecipeCreateForm>
+            <button onClick={() => {setRecipeCreateForm(true); }}>Создать рецепт</button>
+            <RecipeCreateForm
+                trigger = {recipeCreateForm}
+                setTrigger={setRecipeCreateForm}
+                recipeCreateHandle={handleRecipeCreate}></RecipeCreateForm>
             <div className="container mt-4">
                 <div className="row">
                     <h1>Список рецептов</h1>

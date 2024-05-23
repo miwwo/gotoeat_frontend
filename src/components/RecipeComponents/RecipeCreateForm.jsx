@@ -30,6 +30,7 @@ function RecipeForm (props){
         }
         fetchIngredients();
     }, []);
+
     const handleAddIngredient = () => {
         setRecipeIngredients([...recipeIngredients, { ingredient: null, quantity: '' }]);
     };

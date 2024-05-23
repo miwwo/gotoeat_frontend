@@ -3,14 +3,14 @@ import Recipe from './Recipe';
 import {listRecipes} from "../../sevices/RecipeService";
 import {useSelector} from "react-redux";
 import RecipeCreateForm from "./RecipeCreateForm";
-import {current} from "@reduxjs/toolkit";
+import Pagination from "../../pages/Pagination";
 
 const RecipeList = () => {
     const { token } = useSelector((state) => state.user);
 
     const [recipes, setRecipes] = useState([]);
-    const [currentPage, setCurrentPage] = useState(2);
-    const [recipesPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [recipesPerPage, setRecipePerPage] = useState(10);
 
     const [recipeCreateForm, setRecipeCreateForm] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -58,7 +58,7 @@ const RecipeList = () => {
     return (
         <div className="container">
             <button onClick={() => setRecipeCreateForm(true)}>Создать рецепт</button>
-           <RecipeCreateForm trigger = {recipeCreateForm} setTrigger={setRecipeCreateForm}></RecipeCreateForm>
+            <RecipeCreateForm trigger = {recipeCreateForm} setTrigger={setRecipeCreateForm}></RecipeCreateForm>
             <div className="container mt-4">
                 <div className="row">
                     <h1>Список рецептов</h1>
@@ -76,8 +76,12 @@ const RecipeList = () => {
                                     <Recipe recipe={recipe} />
                                 </div>
                             ))}
+                                <Pagination totalRecipe={filteredRecipes.length}
+                                            recipePerPage={recipesPerPage}
+                                            setCurrentPage={setCurrentPage}
+                                            currentPage={currentPage}/>
                             </div>
-                            
+
                          </div>
                 </div>
             </div>

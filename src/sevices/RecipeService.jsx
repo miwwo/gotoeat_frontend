@@ -11,7 +11,7 @@ export const listRecipes = async (token) => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log("token ",token)
+        console.log("Made listRecipes request")
         return response.data;
     } catch (e) {
         if (e.response) {
@@ -32,7 +32,7 @@ export const listIngredients = async (token) => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log("token ",token)
+        console.log("Made ListIngredients request")
         return response.data;
     } catch (e) {
         if (e.response) {

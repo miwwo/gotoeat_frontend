@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {signUp} from "../sevices/AuthService";
+import "../App.css";
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -47,7 +48,7 @@ const Register = () => {
 
 
     return (
-        <>
+        <div className="form-signin">
             <form onSubmit={submit}>
                 <h1 className="h3 mb-3 fw-normal">Please register</h1>
                 <input type="username" className="form-control" placeholder="Username" required
@@ -60,9 +61,9 @@ const Register = () => {
             {errMsg && <p className="error">{errMsg}</p>}
             <p>
                 Have an account?
-                <Link to="/register">Log in</Link>
+                <Link to="/login">Log in</Link>
             </p>
-        </>
+        </div>
 
     );
 };

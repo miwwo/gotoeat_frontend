@@ -16,7 +16,7 @@ function App() {
             <BrowserRouter>
                 <Nav name={user.username} setName={user.username}/>
 
-                <main className="form-signin">
+                <main>
                     <Routes>
                         <Route
                             path="/"

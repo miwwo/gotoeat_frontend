@@ -1,10 +1,9 @@
 import React from 'react';
 import RecipeList from "../components/RecipeComponents/RecipeList";
 
-const Home = (props) => {
+const Home = () => {
     return (
         <div>
-            {props.username ? 'Hi, ' + props.username : 'You are not logged in'}
             <RecipeList/>
         </div>
     );

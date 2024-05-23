@@ -4,6 +4,7 @@ import {login} from "../sevices/AuthService";
 import AuthContext from "../context/AuthProvider";
 import {useDispatch} from "react-redux";
 import {setUser} from "../store/slices/userSlice";
+import "../App.css";
 
 const Login = (props) => {
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const Login = (props) => {
     }
 
     return (
-        <>
+        <div className="form-signin">
             <form onSubmit={submit}>
             <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
             <input type="text" className="form-control" placeholder="Username" value={username} required
@@ -60,7 +61,7 @@ const Login = (props) => {
                 Not registered yet?
                 <Link to="/register">Register</Link>
             </p>
-        </>
+        </div>
 
     );
 };

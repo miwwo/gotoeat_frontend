@@ -1,5 +1,5 @@
 import React from 'react';
-import RecipeList from "../components/RecipeList";
+import RecipeList from "../components/RecipeComponents/RecipeList";
 
 const Home = (props) => {
     return (

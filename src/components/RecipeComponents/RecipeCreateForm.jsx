@@ -3,8 +3,8 @@ import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@m
 import { Autocomplete } from '@material-ui/lab';
 import {listIngredients} from "../../sevices/RecipeService";
 import {useSelector} from "react-redux";
-
-const RecipeForm = () => {
+import "./RecipeCreateForm.css";
+function RecipeForm (props){
     const { token } = useSelector((state) => state.user);
 
     const [name, setName] = useState('');
@@ -103,67 +103,72 @@ const RecipeForm = () => {
     if (error) {
         return <div>{error}</div>;
     }
-    return (
-        <div>
-            <TextField
-                label="Название"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                fullWidth
-                margin="normal"
-                error={!!formErrors.name}
-                helperText={formErrors.name}
-            />
-            <TextField
-                label="Описание"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                fullWidth
-                multiline
-                margin="normal"
-            />
-            {recipeIngredients.map((ingredient, index) => (
-                <div key={index}>
-                    <FormControl fullWidth margin="normal">
-                        <Autocomplete
-                            options={ingredients}
-                            getOptionLabel={(option) => option.name}
-                            onChange={(event, value) => handleIngredientChange(index, value)}
-                            renderInput={(params) =>
-                                <TextField {...params}
-                                           label="Ингредиент"
-                                           error={!!formErrors.listIngredientsNameEmpty}
-                                           helperText={formErrors.listIngredientsNameEmpty} />}
+    return (props.trigger) ? (
+            <div className="popupForm">
+                <div className="popupForm-inner">
+                    <button className="popupForm-close" onClick={() => props.setTrigger(false)}>Закрыть</button>
+                    <div>
+                        <TextField
+                            label="Название"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            fullWidth
+                            margin="normal"
+                            error={!!formErrors.name}
+                            helperText={formErrors.name}
                         />
-                    </FormControl>
-                    <TextField
-                        label="Количество"
-                        value={ingredient.quantity}
-                        onChange={(e) => handleQuantityChange(index, e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        error={!!formErrors.listIngredientsNameEmpty}
-                        helperText={formErrors.listIngredientsNameEmpty}
-                    />
-                    {/*<Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => handleRemoveIngredient(index)}
-                        style={{ marginLeft: '10px' }}
-                    >
-                        Удалить
-                    </Button>*/}
+                        <TextField
+                            label="Описание"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            fullWidth
+                            multiline
+                            margin="normal"
+                        />
+                        {recipeIngredients.map((ingredient, index) => (
+                            <div key={index}>
+                                <FormControl fullWidth margin="normal">
+                                    <Autocomplete
+                                        options={ingredients}
+                                        getOptionLabel={(option) => option.name}
+                                        onChange={(event, value) => handleIngredientChange(index, value)}
+                                        renderInput={(params) =>
+                                            <TextField {...params}
+                                                       label="Ингредиент"
+                                                       error={!!formErrors.listIngredientsNameEmpty}
+                                                       helperText={formErrors.listIngredientsNameEmpty} />}
+                                    />
+                                </FormControl>
+                                <TextField
+                                    label="Количество"
+                                    value={ingredient.quantity}
+                                    onChange={(e) => handleQuantityChange(index, e.target.value)}
+                                    fullWidth
+                                    margin="normal"
+                                    error={!!formErrors.listIngredientsNameEmpty}
+                                    helperText={formErrors.listIngredientsNameEmpty}
+                                />
+                                {/*<Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={() => handleRemoveIngredient(index)}
+                                    style={{ marginLeft: '10px' }}
+                                >
+                                    Удалить
+                                </Button>*/}
+                            </div>
+                        ))}
+                        <Button variant="contained" color="primary" onClick={handleAddIngredient}>
+                            Добавить ингредиент
+                        </Button>
+                        {formErrors.listIngredients && <p>{formErrors.listIngredienst}</p>}
+                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                            Создать рецепт
+                        </Button>
+                    </div>
                 </div>
-            ))}
-            <Button variant="contained" color="primary" onClick={handleAddIngredient}>
-                Добавить ингредиент
-            </Button>
-            {formErrors.listIngredients && <p>{formErrors.listIngredienst}</p>}
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-                Создать рецепт
-            </Button>
-        </div>
-    );
-};
+            </div>
+    ) : "";
+}
 
 export default RecipeForm;

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Recipe from './Recipe';
-import {listRecipes} from "../sevices/RecipeService";
+import {listRecipes} from "../../sevices/RecipeService";
 import {useSelector} from "react-redux";
-import RecipeCreateForm from "./RecipeComponents/RecipeCreateForm";
+import RecipeCreateForm from "./RecipeCreateForm";
 
 
 const RecipeList = () => {
     const { token } = useSelector((state) => state.user);
 
     const [recipes, setRecipes] = useState([]);
+    const [recipeCreateForm, setRecipeCreateForm] = useState(false);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -39,8 +41,8 @@ const RecipeList = () => {
 
     return (
         <div className="container">
-
-           <RecipeCreateForm></RecipeCreateForm>
+            <button onClick={() => setRecipeCreateForm(true)}>Создать рецепт</button>
+           <RecipeCreateForm trigger = {recipeCreateForm} setTrigger={setRecipeCreateForm}></RecipeCreateForm>
             <h1>Список рецептов</h1>
             <ul>
                 {recipes.map(recipe => (

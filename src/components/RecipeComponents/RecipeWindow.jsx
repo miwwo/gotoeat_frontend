@@ -14,10 +14,10 @@ const RecipeWindow = ({ recipe }) => {
             <p>{recipe.description}</p>
             <h3>Ингредиенты:</h3>
             <ul>
-                {recipe.ingredientsQuantity && recipe.ingredientsQuantity.map(ingredientQuantity => (
-                    <li key={ingredientQuantity.id}>
-                        <p>Ингредиент: {ingredientQuantity.ingredient.name}</p>
-                        <p>Количество: {ingredientQuantity.quantity} {units[ingredientQuantity.ingredient.unit]}</p>
+                {recipe.recipeIngredients && recipe.recipeIngredients.map(recipeIngredient => (
+                    <li key={recipeIngredient.id}>
+                        <p>Ингредиент: {recipeIngredient.ingredient.name}</p>
+                        <p>Количество: {recipeIngredient.quantity} {units[recipeIngredient.ingredient.unit]}</p>
                     </li>
                 ))}
             </ul>

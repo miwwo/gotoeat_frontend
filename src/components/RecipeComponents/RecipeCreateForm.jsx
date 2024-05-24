@@ -12,12 +12,19 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [ingredients, setIngredients] = useState([]);
-    const [recipeIngredients, setRecipeIngredients] = useState([]);
+
+    const [recipeToCreateIngredients, setRecipeToCreateIngredients] = useState([]);
     const [visible, setVisible] = useState(false);
 
 
     const [error, setError] = useState(null);
     const [formErrors, setFormErrors] = useState({});
+
+    const unitsHandle = {
+        "GRAM": "г",
+        "MILLILITER": "мл",
+        "PIECE": "шт"
+    }
 
     useEffect(() => {
         const fetchIngredients = async () => {
@@ -33,27 +40,32 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
 
     useEffect(() => {
      setFormErrors({})
-    }, [recipeIngredients]);
+    }, [recipeToCreateIngredients]);
     const handleAddIngredient = () => {
-        setRecipeIngredients([...recipeIngredients, { ingredient: null, quantity: '' }]);
+        setRecipeToCreateIngredients([...recipeToCreateIngredients, { ingredient: null, quantity: '' , unit: ''}]);
     };
 
     const handleIngredientChange = (index, value) => {
-        const updatedIngredients = [...recipeIngredients];
+        console.log(value)
+        const updatedIngredients = [...recipeToCreateIngredients];
         updatedIngredients[index].ingredient = value;
-        setRecipeIngredients(updatedIngredients);
+        setRecipeToCreateIngredients(updatedIngredients);
     };
 
     const handleQuantityChange = (index, value) => {
-        const updatedIngredients = [...recipeIngredients];
+        const updatedIngredients = [...recipeToCreateIngredients];
         updatedIngredients[index].quantity = value;
-        setRecipeIngredients(updatedIngredients);
+        setRecipeToCreateIngredients(updatedIngredients);
     };
+
+
     const handleRemoveIngredient = (index) => {
-        const updatedIngredients = [...recipeIngredients];
+        const updatedIngredients = [...recipeToCreateIngredients];
         updatedIngredients.splice(index, 1);
-        setRecipeIngredients(updatedIngredients);
+        setRecipeToCreateIngredients(updatedIngredients);
     };
+
+
     const validateInput = () => {
         let isValid = true;
         let errors = {};
@@ -63,16 +75,17 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
             errors.name = "Name is required";
         }
 
-        if (recipeIngredients.length === 0) {
+        if (recipeToCreateIngredients.length === 0) {
             isValid = false;
             errors.listIngredients = "Ingredients are required";
         } else {
-            recipeIngredients.forEach((recipeIngredient, index) => {
-                if (!recipeIngredient.ingredient) {
+            recipeToCreateIngredients.forEach(
+                (recipeToCreateIngredient, index) => {
+                if (!recipeToCreateIngredient.ingredient) {
                     isValid = false;
                     errors[`ingredient${index}`] = "Ingredient is required";
                 }
-                if (!recipeIngredient.quantity) {
+                if (!recipeToCreateIngredient.quantity) {
                     isValid = false;
                     errors[`quantity${index}`] = "Quantity is required";
                 }
@@ -92,9 +105,10 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
             name,
             description,
             visible,
-            ingredientsQuantity: recipeIngredients.map(recipeIngredient => ({
-                ingredient: { id: recipeIngredient.ingredient.id },
-                quantity: recipeIngredient.quantity
+            recipeIngredients: recipeToCreateIngredients.map(recipeToCreateIngredient => ({
+                ingredient: { id: recipeToCreateIngredient.ingredient.id },
+                quantity: recipeToCreateIngredient.quantity,
+                unit: recipeToCreateIngredient.ingredient.unit
             }))
         };
         const response =  await createRecipe(token, recipe);
@@ -112,12 +126,10 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
             <div className="popupForm-inner">
                 <button className="popupForm-close" onClick={() => setTrigger(false)}>Закрыть</button>
                 <div>
-                    <TextField
+                    <TextField style={{ width: '40%', marginRight: '10px' }}
                         label="Название"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        fullWidth
-                        margin="normal"
                         error={!!formErrors.name}
                         helperText={formErrors.name}
                     />
@@ -129,9 +141,10 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
                         multiline
                         margin="normal"
                     />
-                    {recipeIngredients.map((ingredient, index) => (
-                        <div className="container p-0" key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                            <FormControl style={{ width: '50%', marginRight: '10px' }}>
+                    {recipeToCreateIngredients.map((ingredient, index) => (
+                        <div className="container p-0" key={index}
+                             style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                            <FormControl style={{ width: '40%', marginRight: '10px' }}>
                                 <Autocomplete
                                     options={ingredients}
                                     getOptionLabel={(option) => option.name}
@@ -155,11 +168,14 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
                                         handleQuantityChange(index, value);
                                     }
                                 }}
-                                style={{ width: '25%', marginRight: '10px', marginTop:'16px'}}
+                                style={{ width: '10%', marginRight: '10px', marginTop:'16px'}}
                                 error={!!formErrors[`quantity${index}`]}
                                 helperText={formErrors[`quantity${index}`]}
                                 inputProps={{ pattern: "[0-9]*" }}
                             />
+                            {recipeToCreateIngredients[index].ingredient!==null&&<
+                                p style={{marginBottom:'0px', marginTop:'30px', marginRight:'50px'}}>
+                                {unitsHandle[recipeToCreateIngredients[index].ingredient.unit]}</p>}
                             <Button variant="contained" color="secondary"
                                     onClick={() => handleRemoveIngredient(index)}>
                                 <FaMinus/>

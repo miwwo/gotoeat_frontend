@@ -4,6 +4,7 @@ import {listRecipes} from "../../sevices/RecipeService";
 import {useSelector} from "react-redux";
 import RecipeCreateForm from "./RecipeCreateForm";
 import Pagination from "../../pages/Pagination";
+import {addRecipeToShoppingList} from "../../sevices/ShoppingListService";
 
 const RecipeList = () => {
     const { token } = useSelector((state) => state.user);
@@ -24,6 +25,10 @@ const RecipeList = () => {
         setRecipeCreated(isRecipeCreated);
     }
 
+    const handleRecipeAdd = (recipe_id) => {
+        addRecipeToShoppingList(token, recipe_id);
+    }
+
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -32,10 +37,10 @@ const RecipeList = () => {
                 setRecipes(response);
             } catch (error) {
                 setError(error.message);
-            } finally {
-                setLoading(false);
+            }finally {
+                setLoading(false)
             }
-        };
+        }
 
         fetchRecipes();
     }, [token, recipeCreated]);
@@ -82,7 +87,7 @@ const RecipeList = () => {
                             <div className="row">
                             {currentRecipes.map(recipe => (
                                 <div className="col-md-6 mb-4" key={recipe.id}>
-                                    <Recipe recipe={recipe} />
+                                    <Recipe recipe={recipe} addRecipeHandle={handleRecipeAdd} />
                                 </div>
                             ))}
                                 <Pagination totalRecipe={filteredRecipes.length}

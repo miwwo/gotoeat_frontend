@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import {useSelector} from "react-redux";
 import PrivateRoute from "./components/PrivateRoute";
+import CurrentShoppingList from "../src/components/profile/CurrentShoppingList";
+import UserRecipe from "./components/profile/UserRecipe";
 
 function App() {
     const user = useSelector(state => state.user);
@@ -23,6 +25,22 @@ function App() {
                             element={
                                 <PrivateRoute>
                                     <Home email={user.email}/>
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/shopping-list"
+                            element={
+                                <PrivateRoute>
+                                    <CurrentShoppingList/>
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/profile/recipes"
+                            element={
+                                <PrivateRoute>
+                                    <UserRecipe/>
                                 </PrivateRoute>
                             }
                         />

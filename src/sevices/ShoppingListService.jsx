@@ -32,7 +32,7 @@ export const addRecipeToShoppingList = async (token, id) => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log("Added recipe with id" + id + " to shoppingList")
+        console.log("Added recipe with id " + id + " to shoppingList")
         return response.data;
     } catch (e) {
         if (e.response) {

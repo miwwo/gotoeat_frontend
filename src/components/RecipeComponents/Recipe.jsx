@@ -7,7 +7,7 @@ const units = {
     "MILLILITER": "ml",
     "PIECE": "psc"
 }
-const Recipe = ({ recipe }) => {
+const Recipe = ({ recipe, addRecipeHandle }) => {
 
     function handleClick() {
 
@@ -25,10 +25,10 @@ const Recipe = ({ recipe }) => {
                 <Card.Title className="mt-2">{recipe.name}</Card.Title>
                 <p>{recipe.description}</p>
                 <div className="d-flex justify-content-end">
-                    <Button variant="outline-secondary" className="me-2">
+                    <Button onClick={()=> addRecipeHandle(recipe.id)} variant="outline-secondary" className="me-2">
                         <FaPlus />
                     </Button>
-                    <Button variant="outline-danger">
+                    <Button  variant="outline-danger">
                         <FaHeart />
                     </Button>
                 </div>

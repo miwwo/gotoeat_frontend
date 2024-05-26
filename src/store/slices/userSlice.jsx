@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     email: null,
-    role: [],
+    roles: [],
     token: null
 };
 
@@ -12,12 +12,12 @@ const userSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             state.email = action.payload.email;
-            state.role = action.payload.role;
+            state.roles = action.payload.roles;
             state.token = action.payload.token;
         },
         removeUser: (state) => {
             state.email = null;
-            state.role = [];
+            state.roles = [];
             state.token = null;
         },
     },

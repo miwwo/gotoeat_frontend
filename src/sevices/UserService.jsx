@@ -23,3 +23,37 @@ export const getPersonalRecipes= async (token) => {
         }
     }
 };
+
+export const listUsers = async (token) => {
+    const response = await axios.get(`${REST_API_BASE_URL}/admin/users`,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
+
+export const updateUser = async (token, user) => {
+    const response = await axios.put(`${REST_API_BASE_URL}/admin/users/${user.id}` , user, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
+export const banUser = async (token, user) => {
+    const response = await axios.put(`${REST_API_BASE_URL}/admin/users/${user.id}/ban` , {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
+export const unbanUser = async (token, user) => {
+    const response = await axios.put(`${REST_API_BASE_URL}/admin/users/${user.id}/unban` , {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return response.data;
+};

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {FaMinus, FaPlus} from "react-icons/fa";
 import {addRecipeToShoppingList} from "../../sevices/ShoppingListService";
 import {useSelector} from "react-redux";
 import {getPersonalRecipes} from "../../sevices/UserService";
@@ -135,8 +134,8 @@ function UserRecipe() {
                 recipeUpdateHandle={handleRecipeUpdateComplete}
                 recipeToEdit={recipeToEdit}
             />
-            <Pagination totalRecipe={filteredRecipes.length}
-                        recipePerPage={recipesPerPage}
+            <Pagination totalRecord={filteredRecipes.length}
+                        recordPerPage={recipesPerPage}
                         setCurrentPage={setCurrentPage}
                         currentPage={currentPage}/>
         </div>

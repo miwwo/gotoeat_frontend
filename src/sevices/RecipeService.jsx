@@ -105,3 +105,12 @@ export const removeRecipe = async (token, id) => {
     }
 }
 
+export const listRecipesByUser = async (token, userId) => {
+    const response = await axios.get(`${REST_API_BASE_URL}/admin/users/recipes/${userId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
+

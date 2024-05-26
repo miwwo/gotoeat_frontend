@@ -42,7 +42,7 @@ const RecipeForm = ({trigger, setTrigger, recipeCreateHandle, recipeToEdit, reci
     }, [recipeToCreateIngredients]);
 
     useEffect(() => {
-        if (recipeToEdit) {
+        if (recipeToEdit!=null) {
             setName(recipeToEdit.name);
             setDescription(recipeToEdit.description);
             setRecipeToCreateIngredients(recipeToEdit.recipeIngredients.map(ri => ({
@@ -56,7 +56,7 @@ const RecipeForm = ({trigger, setTrigger, recipeCreateHandle, recipeToEdit, reci
             setRecipeToCreateIngredients([]);
             setVisible(false);
         }
-    }, [recipeToEdit]);
+    }, [trigger]);
 
     const handleAddIngredient = () => {
         setRecipeToCreateIngredients([...recipeToCreateIngredients, { ingredient: null, quantity: '' , unit: '' }]);

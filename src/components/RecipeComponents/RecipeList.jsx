@@ -21,20 +21,12 @@ const RecipeList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const handleRecipeCreate = (isRecipeCreated) =>{
-        setRecipeCreated(isRecipeCreated);
-    }
-
-    const handleRecipeAdd = (recipe_id) => {
-        addRecipeToShoppingList(token, recipe_id);
-    }
-
-
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
                 const response = await listRecipes(token)
                 setRecipes(response);
+                setRecipeCreated(false);
             } catch (error) {
                 setError(error.message);
             }finally {
@@ -44,6 +36,15 @@ const RecipeList = () => {
 
         fetchRecipes();
     }, [token, recipeCreated]);
+
+
+    const handleRecipeCreate = (isRecipeCreated) =>{
+        setRecipeCreated(isRecipeCreated);
+    }
+
+    const handleRecipeAdd = (recipe_id) => {
+        addRecipeToShoppingList(token, recipe_id);
+    }
 
 
     const handleSearch = (event) => {
@@ -72,7 +73,9 @@ const RecipeList = () => {
             <RecipeForm
                 trigger = {recipeCreateForm}
                 setTrigger={setRecipeCreateForm}
-                recipeCreateHandle={handleRecipeCreate}></RecipeForm>
+                recipeCreateHandle={handleRecipeCreate}>
+                recipeToEdit={null}
+            </RecipeForm>
             <div className="container mt-4">
                 <div className="row">
                     <h1>Список рецептов</h1>

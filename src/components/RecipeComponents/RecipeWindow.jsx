@@ -1,16 +1,16 @@
 import React from 'react';
-
+import { FaPlus } from "react-icons/fa";
+import { Button } from "react-bootstrap";
 
 const units = {
     "GRAM": "g",
     "MILLILITER": "ml",
     "PIECE": "psc"
-}
-const RecipeWindow = ({ recipe }) => {
+};
 
+const RecipeWindow = ({ recipe, addRecipeHandle }) => {
     return (
         <div>
-            <h2>{recipe.name}</h2>
             <p>{recipe.description}</p>
             <h3>Ингредиенты:</h3>
             <ul>
@@ -21,6 +21,9 @@ const RecipeWindow = ({ recipe }) => {
                     </li>
                 ))}
             </ul>
+            <Button onClick={() => addRecipeHandle(recipe.id)} variant="outline-secondary" className="me-2">
+                <FaPlus />
+            </Button>
         </div>
     );
 };

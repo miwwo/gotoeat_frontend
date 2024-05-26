@@ -52,15 +52,15 @@ const IngredientPanel = () => {
     return (
         <div>
             <Button variant="contained" color="primary" onClick={handleAddClick}>
-                Add Ingredient
+                Добавить ингредиент
             </Button>
             <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Unit</TableCell>
-                        <TableCell>Actions</TableCell>
+                        <TableCell>Имя</TableCell>
+                        <TableCell>Мера измерения</TableCell>
+                        <TableCell>Действия</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -71,10 +71,10 @@ const IngredientPanel = () => {
                             <TableCell>{ingredient.unit}</TableCell>
                             <TableCell>
                                 <Button variant="contained" color="primary" onClick={() => handleEditClick(ingredient)}>
-                                    Edit
+                                    Обновить
                                 </Button>
                                 <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(ingredient.id)}>
-                                    Delete
+                                    Удалить
                                 </Button>
                             </TableCell>
                         </TableRow>
@@ -82,7 +82,7 @@ const IngredientPanel = () => {
                 </TableBody>
             </Table>
             <Dialog open={isFormOpen} onClose={handleClose}>
-                <DialogTitle>{selectedIngredient ? 'Edit Ingredient' : 'Add Ingredient'}</DialogTitle>
+                <DialogTitle>{selectedIngredient ? 'Обновить ингредиент' : 'Добавить ингредиент'}</DialogTitle>
                 <DialogContent>
                     <IngredientForm
                         ingredient={selectedIngredient}

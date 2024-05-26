@@ -81,7 +81,7 @@ const UserPanel = () => {
                     <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Email</TableCell>
-                        <TableCell>Actions</TableCell>
+                        <TableCell>Действия</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -91,13 +91,13 @@ const UserPanel = () => {
                             <TableCell>{_user.email}</TableCell>
                             <TableCell>
                                 <Button variant="contained" color="primary" onClick={() => handleEditClick(_user)}>
-                                    Edit
+                                    Обновить
                                 </Button>
                                 <Button variant="contained" color="secondary" onClick={() => handleBanClick(_user.id)}>
                                     {_user.enabled===true? 'Бан' : 'Разбан' }
                                 </Button>
                                 <Button variant="contained" color="default" onClick={() => handleViewRecipes(_user)}>
-                                    View Recipes
+                                    Рецепты пользователя
                                 </Button>
                             </TableCell>
                         </TableRow>

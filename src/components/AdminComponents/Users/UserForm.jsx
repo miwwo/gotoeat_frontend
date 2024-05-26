@@ -41,10 +41,10 @@ const UserForm = ({ user, handleSubmit, handleClose }) => {
                 margin="normal"
             />
             <Button type="submit" color="primary" variant="contained" fullWidth>
-                {user ? 'Update' : 'Add'} User
+                Обновить пользователя
             </Button>
             <Button onClick={handleClose} color="secondary" variant="contained" fullWidth style={{ marginTop: '10px' }}>
-                Cancel
+                Отмена
             </Button>
         </form>
     );

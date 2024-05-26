@@ -16,10 +16,10 @@ const Nav = (props) => {
         nav_bar = (
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 <li className="nav-item active">
-                    <Link to="/login" className="nav-link">Login</Link>
+                    <Link to="/login" className="nav-link">Войти</Link>
                 </li>
                 <li className="nav-item active">
-                    <Link to="/register" className="nav-link">Register</Link>
+                    <Link to="/register" className="nav-link">Зарегистрироваться</Link>
                 </li>
             </ul>
         )
@@ -28,7 +28,7 @@ const Nav = (props) => {
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 {(props.roles.includes('ROLE_ADMIN')) &&
                     <li className="nav-item active">
-                        <Link to="/admin" className="nav-link">Панель администратора</Link>
+                        <Link to="/" className="nav-link">Панель администратора</Link>
                     </li>
                 }
                 <li className="nav-item active">
@@ -38,7 +38,7 @@ const Nav = (props) => {
                     <Link to="/shopping-list" className="nav-link">Мой лист покупок</Link>
                 </li>
                 <li className="nav-item active">
-                    <Link to="/login" className="nav-link" onClick={logout}>{props.email} Logout</Link>
+                    <Link to="/login" className="nav-link" onClick={logout}>{props.email} выйти</Link>
                 </li>
             </ul>
         )
@@ -47,7 +47,7 @@ const Nav = (props) => {
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand">Home</Link>
+                <Link to="/" className="navbar-brand">GoToEAT</Link>
                 <div>
                     {nav_bar}
                 </div>

@@ -32,7 +32,7 @@ const RecipeForm = ({ recipe, handleSubmit, handleClose }) => {
     return (
         <form onSubmit={onSubmit}>
             <TextField
-                label="Name"
+                label="имя"
                 name="name"
                 value={formState.name}
                 onChange={handleChange}
@@ -41,7 +41,7 @@ const RecipeForm = ({ recipe, handleSubmit, handleClose }) => {
                 margin="normal"
             />
             <TextField
-                label="Description"
+                label="Описание"
                 name="description"
                 value={formState.description}
                 onChange={handleChange}
@@ -50,10 +50,10 @@ const RecipeForm = ({ recipe, handleSubmit, handleClose }) => {
                 margin="normal"
             />
             <Button type="submit" color="primary" variant="contained" fullWidth>
-                {recipe ? 'Update' : 'Add'} Recipe
+                {recipe ? 'Обновить' : 'Создать'} рецепт
             </Button>
             <Button onClick={handleClose} color="secondary" variant="contained" fullWidth style={{ marginTop: '10px' }}>
-                Cancel
+                Отмена
             </Button>
         </form>
     );

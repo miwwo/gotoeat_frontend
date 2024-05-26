@@ -58,15 +58,15 @@ const RecipePanel = ({ userId, handleBack }) => {
     return (
         <div>
             <Button variant="contained" color="default" onClick={handleBack} style={{ marginLeft: '10px' }}>
-                Back to Users
+                К пользователям
             </Button>
             <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell>Actions</TableCell>
+                        <TableCell>Имя</TableCell>
+                        <TableCell>Описание</TableCell>
+                        <TableCell>Действия</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -77,7 +77,7 @@ const RecipePanel = ({ userId, handleBack }) => {
                             <TableCell>{recipe.description}</TableCell>
                             <TableCell>
                                 <Button variant="contained" color="primary" onClick={() => handleEditClick(recipe)}>
-                                    Edit
+                                    Обновить
                                 </Button>
                             </TableCell>
                         </TableRow>
@@ -85,7 +85,7 @@ const RecipePanel = ({ userId, handleBack }) => {
                 </TableBody>
             </Table>
             <Dialog open={isFormOpen} onClose={handleClose}>
-                <DialogTitle>{'Edit Recipe'}</DialogTitle>
+                <DialogTitle>{'Обновить рецепт'}</DialogTitle>
                 <DialogContent>
                     <RecipeForm
                         recipe={selectedRecipe}

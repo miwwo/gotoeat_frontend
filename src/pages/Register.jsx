@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import {signUp} from "../sevices/AuthService";
+import {signUp} from "../sevices/security/AuthService";
 import "../App.css";
 
 const Register = () => {
@@ -60,7 +60,7 @@ const Register = () => {
                 <input type="password" className="form-control" placeholder="Пароль" required
                        onChange={e => setPassword(e.target.value)}/>
                 {errors.password && <p className="error">{errors.password}</p>}
-                <button className="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+                <button className="w-100 btn btn-lg btn-primary" type="submit">Регистрация</button>
             </form>
             {errMsg && <p className="error">{errMsg}</p>}
             <p>

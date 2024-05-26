@@ -13,10 +13,10 @@ const AdminPanel = () => {
 
     return (
         <div>
-            <h1>Admin Panel</h1>
+            <h1>Панель администратора</h1>
             <Tabs value={tabIndex} onChange={handleChange}>
-                <Tab label="Ingredients" />
-                <Tab label="Users" />
+                <Tab label="Ингредиенты" />
+                <Tab label="Пользователи" />
             </Tabs>
             <Box hidden={tabIndex !== 0}>
                 <IngredientPanel />

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import {login} from "../sevices/AuthService";
+import {login} from "../sevices/security/AuthService";
 import AuthContext from "../context/AuthProvider";
 import {useDispatch} from "react-redux";
 import {setUser} from "../store/slices/userSlice";

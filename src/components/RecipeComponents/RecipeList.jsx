@@ -93,8 +93,8 @@ const RecipeList = () => {
                                     <Recipe recipe={recipe} addRecipeHandle={handleRecipeAdd} />
                                 </div>
                             ))}
-                                <Pagination totalRecipe={filteredRecipes.length}
-                                            recipePerPage={recipesPerPage}
+                                <Pagination totalRecord={filteredRecipes.length}
+                                            recordPerPage={recipesPerPage}
                                             setCurrentPage={setCurrentPage}
                                             currentPage={currentPage}/>
                             </div>

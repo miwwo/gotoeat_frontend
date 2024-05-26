@@ -9,6 +9,8 @@ import {useSelector} from "react-redux";
 import PrivateRoute from "./components/PrivateRoute";
 import CurrentShoppingList from "../src/components/profile/CurrentShoppingList";
 import UserRecipe from "./components/profile/UserRecipe";
+import AdminRoute from "./components/AdminComponents/AdminRoute";
+import AdminPanel from "./components/AdminComponents/AdminPanel";
 
 function App() {
     const user = useSelector(state => state.user);
@@ -16,7 +18,7 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Nav email={user.email} setEmail={user.email}/>
+                <Nav email={user.email} setEmail={user.email} roles={user.roles}/>
 
                 <main>
                     <Routes>
@@ -42,6 +44,14 @@ function App() {
                                 <PrivateRoute>
                                     <UserRecipe/>
                                 </PrivateRoute>
+                            }
+                        />
+                        <Route
+                        path="/admin"
+                        element={
+                            <AdminRoute>
+                                <AdminPanel/>
+                            </AdminRoute>
                             }
                         />
                         <Route path="/login" element={<Login/>}/>

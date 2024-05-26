@@ -32,15 +32,6 @@ const UserForm = ({ user, handleSubmit, handleClose }) => {
     return (
         <form onSubmit={onSubmit}>
             <TextField
-                label="Name"
-                name="name"
-                value={formState.name}
-                onChange={handleChange}
-                required
-                fullWidth
-                margin="normal"
-            />
-            <TextField
                 label="Email"
                 name="email"
                 value={formState.email}

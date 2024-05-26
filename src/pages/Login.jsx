@@ -33,12 +33,15 @@ const Login = (props) => {
             const decodedToken = parseJwt(content.accessToken);
             const accessToken = content.accessToken;
             const roles = decodedToken.roles;
+            const  status = decodedToken.status;
+            console.log(email + " " + accessToken + " " + roles + " " + status)
             dispatch(setUser({
                 email: email,
                 token: accessToken,
                 roles: roles,
+                status: status
             }));
-            setAuth({email, password, accessToken, roles});
+            setAuth({email, password, accessToken, roles, status});
             navigate('/');
         }
     }

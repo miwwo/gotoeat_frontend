@@ -8,13 +8,14 @@ import { useSelector } from "react-redux";
 import Pagination from "../../../pages/Pagination";
 
 const UserPanel = () => {
-    const { token } = useSelector((state) => state.user);
+    const { token, user } = useSelector((state) => state.user);
     const [users, setUsers] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [usersPerPage, setUsersPerPage] = useState(10);
 
     const [searchQuery, setSearchQuery] = useState("");
+    const [reloading, setReloading] = useState(false);
 
     const [selectedUser, setSelectedUser] = useState(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -24,9 +25,10 @@ const UserPanel = () => {
         const fetchUsers = async () => {
             const data = await listUsers(token);
             setUsers(data);
+            setReloading(false)
         };
         fetchUsers();
-    }, [token]);
+    }, [token, reloading]);
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
     };
@@ -47,7 +49,7 @@ const UserPanel = () => {
 
     const handleBanClick = async (id) => {
         await banUser(token, id);
-        setUsers(prevUsers => prevUsers.filter(user => user.id !== id));
+        setReloading(true);
     };
 
     const handleSubmit = async (user) => {
@@ -83,18 +85,18 @@ const UserPanel = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {currentUsers.map((user) => (
-                        <TableRow key={user.id}>
-                            <TableCell>{user.id}</TableCell>
-                            <TableCell>{user.email}</TableCell>
+                    {currentUsers.map((_user) => (
+                        <TableRow key={_user.id}>
+                            <TableCell>{_user.id}</TableCell>
+                            <TableCell>{_user.email}</TableCell>
                             <TableCell>
-                                <Button variant="contained" color="primary" onClick={() => handleEditClick(user)}>
+                                <Button variant="contained" color="primary" onClick={() => handleEditClick(_user)}>
                                     Edit
                                 </Button>
-                                <Button variant="contained" color="secondary" onClick={() => handleBanClick(user.id)}>
-                                    Бан
+                                <Button variant="contained" color="secondary" onClick={() => handleBanClick(_user.id)}>
+                                    {_user.enabled===true? 'Бан' : 'Разбан' }
                                 </Button>
-                                <Button variant="contained" color="default" onClick={() => handleViewRecipes(user)}>
+                                <Button variant="contained" color="default" onClick={() => handleViewRecipes(_user)}>
                                     View Recipes
                                 </Button>
                             </TableCell>

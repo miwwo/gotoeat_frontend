@@ -28,9 +28,6 @@ const Recipe = ({ recipe, addRecipeHandle }) => {
                     <Button onClick={()=> addRecipeHandle(recipe.id)} variant="outline-secondary" className="me-2">
                         <FaPlus />
                     </Button>
-                    <Button  variant="outline-danger">
-                        <FaHeart />
-                    </Button>
                 </div>
             </Card.Body>
         </Card>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Recipe from './Recipe';
 import {listRecipes} from "../../sevices/RecipeService";
 import {useSelector} from "react-redux";
-import RecipeCreateForm from "./RecipeCreateForm";
+import RecipeForm from "./RecipeForm";
 import Pagination from "../../pages/Pagination";
 import {addRecipeToShoppingList} from "../../sevices/ShoppingListService";
 
@@ -69,10 +69,10 @@ const RecipeList = () => {
     return (
         <div className="container">
             <button onClick={() => {setRecipeCreateForm(true); }}>Создать рецепт</button>
-            <RecipeCreateForm
+            <RecipeForm
                 trigger = {recipeCreateForm}
                 setTrigger={setRecipeCreateForm}
-                recipeCreateHandle={handleRecipeCreate}></RecipeCreateForm>
+                recipeCreateHandle={handleRecipeCreate}></RecipeForm>
             <div className="container mt-4">
                 <div className="row">
                     <h1>Список рецептов</h1>

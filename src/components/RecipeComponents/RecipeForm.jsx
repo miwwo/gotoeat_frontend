@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {TextField, Button, FormControl, Checkbox, FormControlLabel} from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import { createRecipe, listIngredients} from "../../sevices/RecipeService"
+import {createRecipe, listIngredients, updateRecipe} from "../../sevices/RecipeService";
 import { useSelector } from "react-redux";
 import "./RecipeCreateForm.css";
 import { FaMinus } from "react-icons/fa";
 
-const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
+const RecipeForm = ({trigger, setTrigger, recipeCreateHandle, recipeToEdit, recipeUpdateHandle}) => {
     const { token } = useSelector((state) => state.user);
 
     const [name, setName] = useState('');
@@ -15,7 +15,6 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
 
     const [recipeToCreateIngredients, setRecipeToCreateIngredients] = useState([]);
     const [visible, setVisible] = useState(false);
-
 
     const [error, setError] = useState(null);
     const [formErrors, setFormErrors] = useState({});
@@ -36,17 +35,34 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
             }
         };
         fetchIngredients();
-    }, []);
+    }, [token]);
 
     useEffect(() => {
-     setFormErrors({})
+        setFormErrors({});
     }, [recipeToCreateIngredients]);
+
+    useEffect(() => {
+        if (recipeToEdit) {
+            setName(recipeToEdit.name);
+            setDescription(recipeToEdit.description);
+            setRecipeToCreateIngredients(recipeToEdit.recipeIngredients.map(ri => ({
+                ingredient: { id: ri.ingredient.id, name: ri.ingredient.name, unit: ri.ingredient.unit },
+                quantity: ri.quantity
+            })));
+            setVisible(recipeToEdit.visible);
+        } else {
+            setName('');
+            setDescription('');
+            setRecipeToCreateIngredients([]);
+            setVisible(false);
+        }
+    }, [recipeToEdit]);
+
     const handleAddIngredient = () => {
-        setRecipeToCreateIngredients([...recipeToCreateIngredients, { ingredient: null, quantity: '' , unit: ''}]);
+        setRecipeToCreateIngredients([...recipeToCreateIngredients, { ingredient: null, quantity: '' , unit: '' }]);
     };
 
     const handleIngredientChange = (index, value) => {
-        console.log(value)
         const updatedIngredients = [...recipeToCreateIngredients];
         updatedIngredients[index].ingredient = value;
         setRecipeToCreateIngredients(updatedIngredients);
@@ -58,13 +74,11 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
         setRecipeToCreateIngredients(updatedIngredients);
     };
 
-
     const handleRemoveIngredient = (index) => {
         const updatedIngredients = [...recipeToCreateIngredients];
         updatedIngredients.splice(index, 1);
         setRecipeToCreateIngredients(updatedIngredients);
     };
-
 
     const validateInput = () => {
         let isValid = true;
@@ -79,13 +93,12 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
             isValid = false;
             errors.listIngredients = "Ingredients are required";
         } else {
-            recipeToCreateIngredients.forEach(
-                (recipeToCreateIngredient, index) => {
-                if (!recipeToCreateIngredient.ingredient) {
+            recipeToCreateIngredients.forEach((ingredient, index) => {
+                if (!ingredient.ingredient) {
                     isValid = false;
                     errors[`ingredient${index}`] = "Ingredient is required";
                 }
-                if (!recipeToCreateIngredient.quantity) {
+                if (!ingredient.quantity) {
                     isValid = false;
                     errors[`quantity${index}`] = "Quantity is required";
                 }
@@ -98,28 +111,53 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
 
     const handleSubmit = async (e) => {
         if (!validateInput()) {
-            console.log("Validation failed");
             return;
         }
         const recipe = {
             name,
             description,
             visible,
-            recipeIngredients: recipeToCreateIngredients.map(recipeToCreateIngredient => ({
-                ingredient: { id: recipeToCreateIngredient.ingredient.id },
-                quantity: recipeToCreateIngredient.quantity,
-                unit: recipeToCreateIngredient.ingredient.unit
+            recipeIngredients: recipeToCreateIngredients.map(ingredient => ({
+                ingredient: { id: ingredient.ingredient.id },
+                quantity: ingredient.quantity,
+                unit: ingredient.ingredient.unit
             }))
         };
-        const response =  await createRecipe(token, recipe);
+        const response = await createRecipe(token, recipe);
         if (response === "Рецепт успешно создан") {
             recipeCreateHandle(true);
-            console.log("Рецепт успешно создан")
             setTrigger(false);
         } else {
             console.log("Error creating recipe");
         }
     };
+
+    const handleUpdateSubmit = async (e) => {
+        if (!validateInput()) {
+            return;
+        }
+
+        const recipe = {
+            id: recipeToEdit.id,
+            name,
+            description,
+            visible,
+            recipeIngredients: recipeToCreateIngredients.map(ingredient => ({
+                ingredient: { id: ingredient.ingredient.id },
+                quantity: ingredient.quantity,
+                unit: ingredient.ingredient.unit
+            }))
+        };
+        console.log(recipe);
+        const response = await updateRecipe(token, recipe);
+        if (response === "Рецепт успешно обновлен") {
+            recipeUpdateHandle(true);
+            setTrigger(false);
+        } else {
+            console.log("Возникла ошибка при обновлении");
+        }
+        recipeUpdateHandle(true);
+    }
 
     return trigger ? (
         <div className="popupForm">
@@ -127,11 +165,11 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
                 <button className="popupForm-close" onClick={() => setTrigger(false)}>Закрыть</button>
                 <div>
                     <TextField style={{ width: '40%', marginRight: '10px' }}
-                        label="Название"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        error={!!formErrors.name}
-                        helperText={formErrors.name}
+                               label="Название"
+                               value={name}
+                               onChange={(e) => setName(e.target.value)}
+                               error={!!formErrors.name}
+                               helperText={formErrors.name}
                     />
                     <TextField
                         label="Описание"
@@ -142,14 +180,14 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
                         margin="normal"
                     />
                     {recipeToCreateIngredients.map((ingredient, index) => (
-                        <div className="container p-0" key={index}
-                             style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                        <div className="container p-0" key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
                             <FormControl style={{ width: '40%', marginRight: '10px' }}>
                                 <Autocomplete
                                     options={ingredients}
                                     getOptionLabel={(option) => option.name}
                                     getOptionSelected={(option, value) => option.id === value.id}
                                     onChange={(event, value) => handleIngredientChange(index, value)}
+                                    value={ingredient.ingredient || null}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
@@ -168,17 +206,18 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
                                         handleQuantityChange(index, value);
                                     }
                                 }}
-                                style={{ width: '10%', marginRight: '10px', marginTop:'16px'}}
+                                style={{ width: '10%', marginRight: '10px', marginTop: '16px' }}
                                 error={!!formErrors[`quantity${index}`]}
                                 helperText={formErrors[`quantity${index}`]}
                                 inputProps={{ pattern: "[0-9]*" }}
                             />
-                            {recipeToCreateIngredients[index].ingredient!==null&&<
-                                p style={{marginBottom:'0px', marginTop:'30px', marginRight:'50px'}}>
-                                {unitsHandle[recipeToCreateIngredients[index].ingredient.unit]}</p>}
-                            <Button variant="contained" color="secondary"
-                                    onClick={() => handleRemoveIngredient(index)}>
-                                <FaMinus/>
+                            {ingredient.ingredient && (
+                                <p style={{ marginBottom: '0px', marginTop: '30px', marginRight: '50px' }}>
+                                    {unitsHandle[ingredient.ingredient.unit]}
+                                </p>
+                            )}
+                            <Button variant="contained" color="secondary" onClick={() => handleRemoveIngredient(index)}>
+                                <FaMinus />
                             </Button>
                         </div>
                     ))}
@@ -193,13 +232,19 @@ const RecipeCreateForm = ({trigger, setTrigger, recipeCreateHandle}) => {
                         label="Публичный"
                     />
                     <br></br>
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                        Создать рецепт
-                    </Button>
+                    {recipeToEdit ? (
+                        <Button variant="contained" color="primary" onClick={handleUpdateSubmit}>
+                            Изменить рецепт
+                        </Button>
+                    ) : (
+                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                            Создать рецепт
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
     ) : null;
 };
 
-export default RecipeCreateForm;
+export default RecipeForm;

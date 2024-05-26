@@ -65,4 +65,43 @@ export const createRecipe = async (token, recipe) => {
             return "Error creating recipe"
     }
 }
+export const updateRecipe = async (token, recipe) => {
+    try {
+
+        const response = await axios({
+            method: 'put',
+            url: REST_API_BASE_URL + "/recipes/" + recipe.id,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            data: recipe,
+        });
+        console.log(REST_API_BASE_URL + "/recipes/" + recipe.id);
+        if (response.status===200) {
+            return "Рецепт успешно обновлен"
+        }
+    } catch (e) {
+        if (e.status!==200)
+            return "Возникла ошибка при обновлении"
+    }
+}
+export const removeRecipe = async (token, id) => {
+    try {
+        const response = await axios({
+            method: 'delete',
+            url: REST_API_BASE_URL + "/recipes/" + id,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        });
+        if (response.status===200) {
+            return "Рецепт успешно удален"
+        }
+    } catch (e) {
+        if (e.status!==200)
+            return "Возникла ошибка при удалении"
+    }
+}
 

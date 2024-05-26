@@ -5,6 +5,9 @@ import {useSelector} from "react-redux";
 import {getPersonalRecipes} from "../../sevices/UserService";
 import RecipeForm from "../RecipeComponents/RecipeForm";
 import {removeRecipe, updateRecipe} from "../../sevices/RecipeService";
+import Pagination from "../../pages/Pagination";
+import Recipe from "../RecipeComponents/Recipe";
+import {Button} from "react-bootstrap";
 
 function UserRecipe() {
     const { token } = useSelector((state) => state.user);
@@ -111,11 +114,16 @@ function UserRecipe() {
                     {currentRecipes.map((recipe, index) => (
                         <div className="container" key={index}>
                             <div>
-                                <h1>{recipe.name}</h1>
-                                <p>Описание:{recipe.description}</p>
-                                <button onClick={() => handleRecipeAdd(recipe.id)}><FaPlus /></button>
-                                <button onClick={() => handleRecipeUpdate(recipe)}>Изменить</button>
-                                <button onClick={() => handleRecipeRemove(recipe.id)}>Удалить</button>
+                                <Recipe recipe={recipe} addRecipeHandle={handleRecipeAdd} recipeControl={
+                                    <div>
+{/*
+                                        <button onClick={() => handleRecipeAdd(recipe.id)}><FaPlus /></button>
+*/}
+                                        <Button onClick={() => handleRecipeUpdate(recipe)}>Изменить</Button>
+                                        <Button onClick={() => handleRecipeRemove(recipe.id)}>Удалить</Button>
+                                    </div>
+                                }/>
+
                             </div>
                         </div>
                     ))}
@@ -127,6 +135,10 @@ function UserRecipe() {
                 recipeUpdateHandle={handleRecipeUpdateComplete}
                 recipeToEdit={recipeToEdit}
             />
+            <Pagination totalRecipe={filteredRecipes.length}
+                        recipePerPage={recipesPerPage}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}/>
         </div>
     )
 }

@@ -9,7 +9,7 @@ const units = {
     "PIECE": "psc"
 };
 
-const Recipe = ({ recipe, addRecipeHandle }) => {
+const Recipe = ({ recipe, addRecipeHandle, recipeControl }) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleClick = () => {
@@ -31,6 +31,7 @@ const Recipe = ({ recipe, addRecipeHandle }) => {
                             <FaPlus />
                         </Button>
                     </div>
+                    {recipeControl}
                 </Card.Body>
             </Card>
 

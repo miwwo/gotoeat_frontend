@@ -1,9 +1,9 @@
 import React from 'react'
 import './Pagination.css'
 
-const Pagination = ({totalRecipe, recipePerPage, setCurrentPage, currentPage}) => {
+const Pagination = ({totalRecord, recordPerPage, setCurrentPage, currentPage}) => {
     let pages = [];
-    for (let i = 1; i <= Math.ceil(totalRecipe/recipePerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalRecord/recordPerPage); i++) {
         pages.push(i);
     }
     return (

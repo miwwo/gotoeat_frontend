@@ -7,6 +7,7 @@ const Pagination = ({totalRecord, recordPerPage, setCurrentPage, currentPage}) =
         pages.push(i);
     }
     return (
+        <div> {totalRecord <= recordPerPage ? '' :
         <div className='pagination'>
             {pages.map((page) => {
                 return (<button key={page}  className={page===currentPage ? 'active' :''}
@@ -14,6 +15,8 @@ const Pagination = ({totalRecord, recordPerPage, setCurrentPage, currentPage}) =
                    </button>
                 );
             })}
+        </div>
+        }
         </div>
     )
 }

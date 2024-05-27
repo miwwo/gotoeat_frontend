@@ -1,0 +1,50 @@
+.recipe-window {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* Используем flex-контейнер */
+    flex-direction: column; /* Устанавливаем направление столбца */
+}
+
+.recipe-window p {
+    margin-bottom: 10px;
+}
+
+.recipe-window h3 {
+    margin-bottom: 10px;
+}
+
+.recipe-window ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recipe-window li {
+    margin-bottom: 10px;
+}
+
+.recipe-window .btn-outline-secondary {
+    background-color: #a3cca3; /* Светло-зеленый цвет */
+    border-color: #a3cca3;
+    color: white;
+    align-self: flex-end; /* Размещаем кнопку в правом конце контейнера */
+}
+
+.recipe-window .btn-outline-secondary:hover {
+    background-color: #8fb08f; /* Более темный оттенок зеленого */
+    border-color: #8fb08f;
+}
+.recipe-window ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recipe-window li {
+    margin-bottom: 10px;
+}
+
+.recipe-window .ingredient-divider {
+    border-top: 1px solid #ccc; /* Горизонтальная линия */
+    margin-top: 10px; /* Отступ между ингредиентами */
+}

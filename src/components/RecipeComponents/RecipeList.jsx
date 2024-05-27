@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Recipe from './Recipe';
-import {listRecipes} from "../../sevices/RecipeService";
-import {useSelector} from "react-redux";
+import { listRecipes } from "../../sevices/RecipeService";
+import { useSelector } from "react-redux";
 import RecipeForm from "./RecipeForm";
 import Pagination from "../../pages/Pagination";
-import {addRecipeToShoppingList} from "../../sevices/ShoppingListService";
+import { addRecipeToShoppingList } from "../../sevices/ShoppingListService";
+import "./RecipeList.css";
 
 const RecipeList = () => {
     const { token } = useSelector((state) => state.user);
@@ -29,7 +30,7 @@ const RecipeList = () => {
                 setRecipeCreated(false);
             } catch (error) {
                 setError(error.message);
-            }finally {
+            } finally {
                 setLoading(false)
             }
         }
@@ -69,14 +70,14 @@ const RecipeList = () => {
 
     return (
         <div className="container">
-            <button onClick={() => {setRecipeCreateForm(true); }}>Создать рецепт</button>
+            <button onClick={() => {setRecipeCreateForm(true); }} className="btn btn-create-recipe">Создать рецепт</button>
             <RecipeForm
                 trigger = {recipeCreateForm}
                 setTrigger={setRecipeCreateForm}
                 recipeCreateHandle={handleRecipeCreate}>
                 recipeToEdit={null}
             </RecipeForm>
-            <div className="container mt-4">
+            <div className="main_container mt-4">
                 <div className="row">
                     <h1>Список рецептов</h1>
                     <input
@@ -86,20 +87,19 @@ const RecipeList = () => {
                         onChange={handleSearch}
                         className="form-control mb-4"
                     />
-                        <div className="container mt-4">
-                            <div className="row">
+                    <div className="container mt-4">
+                        <div className="row">
                             {currentRecipes.map(recipe => (
                                 <div className="col-md-6 mb-4" key={recipe.id}>
-                                    <Recipe recipe={recipe} addRecipeHandle={handleRecipeAdd} />
+                                    <Recipe recipe={recipe} addRecipeHandle={handleRecipeAdd} className="recipe-card" />
                                 </div>
                             ))}
-                                <Pagination totalRecord={filteredRecipes.length}
-                                            recordPerPage={recipesPerPage}
-                                            setCurrentPage={setCurrentPage}
-                                            currentPage={currentPage}/>
-                            </div>
-
-                         </div>
+                            <Pagination totalRecord={filteredRecipes.length}
+                                        recordPerPage={recipesPerPage}
+                                        setCurrentPage={setCurrentPage}
+                                        currentPage={currentPage} className="page-link" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

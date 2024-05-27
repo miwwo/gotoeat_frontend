@@ -1,0 +1,20 @@
+.recipe-card {
+    background-color: #ffffff; /* Белый фон для карточки рецепта */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+.recipe-card .btn-outline-secondary {
+    background-color: #a3cca3; /* Светло-зеленый цвет */
+    border-color: #a3cca3;
+    color: white;
+}
+
+.recipe-card .btn-outline-secondary:hover {
+    background-color: #8fb08f; /* Более темный оттенок зеленого */
+    border-color: #8fb08f;
+}

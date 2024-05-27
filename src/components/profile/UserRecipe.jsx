@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react'
-import {addRecipeToShoppingList} from "../../sevices/ShoppingListService";
-import {useSelector} from "react-redux";
-import {getPersonalRecipes} from "../../sevices/UserService";
-import RecipeForm from "../RecipeComponents/RecipeForm";
-import {removeRecipe, updateRecipe} from "../../sevices/RecipeService";
-import Pagination from "../../pages/Pagination";
-import Recipe from "../RecipeComponents/Recipe";
-import {Button} from "react-bootstrap";
-
+import React, { useEffect, useState } from 'react';
+import { addRecipeToShoppingList } from '../../sevices/ShoppingListService';
+import { useSelector } from 'react-redux';
+import { getPersonalRecipes } from '../../sevices/UserService';
+import RecipeForm from '../RecipeComponents/RecipeForm';
+import { removeRecipe } from '../../sevices/RecipeService';
+import Pagination from '../../pages/Pagination';
+import Recipe from '../RecipeComponents/Recipe';
+import { Button } from 'react-bootstrap';
+import './UserRecipe.css';
 function UserRecipe() {
     const { token } = useSelector((state) => state.user);
 
@@ -19,13 +19,12 @@ function UserRecipe() {
     const [recipeUpdateForm, setRecipeUpdateForm] = useState(false);
     const [recipeToEdit, setRecipeToEdit] = useState(null);
 
-    const [recipeCreated, setRecipeCreated] = useState();
-    const [recipeUpdated, setRecipeUpdated] = useState();
-    const [recipeDeleted, setRecipeDeleted] = useState();
+    const [recipeCreated, setRecipeCreated] = useState(false);
+    const [recipeUpdated, setRecipeUpdated] = useState(false);
+    const [recipeDeleted, setRecipeDeleted] = useState(false);
 
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState('');
 
-    const [error, setError] = useState();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -34,13 +33,13 @@ function UserRecipe() {
                 const response = await getPersonalRecipes(token);
                 setUserRecipes(response);
             } catch (error) {
-                setError(error.message);
+                console.error(error.message);
             } finally {
                 setLoading(false);
                 setRecipeUpdateForm(false);
                 setRecipeDeleted(false);
                 setRecipeCreated(false);
-                setRecipeToEdit(null)
+                setRecipeToEdit(null);
             }
         };
 
@@ -51,7 +50,7 @@ function UserRecipe() {
         setSearchQuery(event.target.value);
     };
 
-    const filteredRecipes = userRecipes.filter(recipe =>
+    const filteredRecipes = userRecipes.filter((recipe) =>
         recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -61,26 +60,25 @@ function UserRecipe() {
 
     const handleRecipeAdd = (recipe_id) => {
         addRecipeToShoppingList(token, recipe_id);
-    }
+    };
 
-    const handleRecipeUpdate = async (recipe) => {
+    const handleRecipeUpdate = (recipe) => {
         setRecipeToEdit(recipe);
         setRecipeUpdateForm(true);
-    }
+    };
 
     const handleRecipeRemove = async (id) => {
         await removeRecipe(token, id);
         setRecipeDeleted(true);
-    }
+    };
 
-    const handleRecipeCreate = (isRecipeCreated) =>{
+    const handleRecipeCreate = (isRecipeCreated) => {
         setRecipeCreated(isRecipeCreated);
-    }
+    };
 
     const handleRecipeUpdateComplete = (isRecipeUpdated) => {
         setRecipeUpdated(isRecipeUpdated);
-
-    }
+    };
 
     const lastRecipeIndex = currentPage * recipesPerPage;
     const firstRecipeIndex = lastRecipeIndex - recipesPerPage;
@@ -88,7 +86,9 @@ function UserRecipe() {
 
     return (
         <div className="container">
-            <button onClick={() => setRecipeCreateForm(true)}>Создать рецепт</button>
+            <Button style={{background:'rosybrown',borderColor:'rosybrown', color:'wheat'}} onClick={() => setRecipeCreateForm(true)} className="mb-3">
+                Создать рецепт
+            </Button>
             <RecipeForm
                 trigger={recipeCreateForm}
                 setTrigger={setRecipeCreateForm}
@@ -102,30 +102,39 @@ function UserRecipe() {
                 </div>
             ) : (
                 <div>
-                    <div>
+                    <div className="mb-3">
                         <input
                             type="text"
+                            className="form-control"
                             placeholder="Поиск по названию"
                             value={searchQuery}
                             onChange={handleSearch}
                         />
                     </div>
-                    {currentRecipes.map((recipe, index) => (
-                        <div className="container" key={index}>
-                            <div>
-                                <Recipe recipe={recipe} addRecipeHandle={handleRecipeAdd} recipeControl={
-                                    <div>
-{/*
-                                        <button onClick={() => handleRecipeAdd(recipe.id)}><FaPlus /></button>
-*/}
-                                        <Button onClick={() => handleRecipeUpdate(recipe)}>Изменить</Button>
-                                        <Button onClick={() => handleRecipeRemove(recipe.id)}>Удалить</Button>
+                    <div className="row">
+                        {currentRecipes.map((recipe, index) => (
+                            <div className="col-md-6 mb-4" key={index}>
+                                <div className="card h-100">
+                                    <div className="card-body">
+                                        <Recipe
+                                            recipe={recipe}
+                                            addRecipeHandle={handleRecipeAdd}
+                                            recipeControl={
+                                                <div className="d-flex justify-content-between">
+                                                    <Button style={{background:'wheat',borderColor:'wheat', color:'darkgoldenrod'}} className="me-2" size="sm" onClick={() => handleRecipeUpdate(recipe)}>
+                                                        Изменить
+                                                    </Button>
+                                                    <Button style={{background:'indianred',borderColor:'indianred', color:'white'}} size="sm" onClick={() => handleRecipeRemove(recipe.id)}>
+                                                        Удалить
+                                                    </Button>
+                                                </div>
+                                            }
+                                        />
                                     </div>
-                                }/>
-
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             )}
             <RecipeForm
@@ -134,12 +143,14 @@ function UserRecipe() {
                 recipeUpdateHandle={handleRecipeUpdateComplete}
                 recipeToEdit={recipeToEdit}
             />
-            <Pagination totalRecord={filteredRecipes.length}
-                        recordPerPage={recipesPerPage}
-                        setCurrentPage={setCurrentPage}
-                        currentPage={currentPage}/>
+            <Pagination
+                totalRecord={filteredRecipes.length}
+                recordPerPage={recipesPerPage}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+            />
         </div>
-    )
+    );
 }
 
 export default UserRecipe;

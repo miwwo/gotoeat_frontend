@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {getShoppingList, removeIngredientFromShoppingList} from "../../sevices/ShoppingListService";
+import { getShoppingList, removeIngredientFromShoppingList } from "../../sevices/ShoppingListService";
 import { useSelector } from 'react-redux';
-import {FaMinus} from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
+import "./ShoppingList.css"; // Импорт файла со стилями
 
 function CurrentShoppingList() {
     const { token } = useSelector((state) => state.user);
@@ -19,7 +20,6 @@ function CurrentShoppingList() {
         const fetchShoppingListData = async () => {
             try {
                 const response = await getShoppingList(token);
-                console.log(response);
                 setSelectedRecipes(response.selectedRecipes);
                 setShoppingList(response.shoppingListIngredients);
             } catch (error) {
@@ -41,21 +41,25 @@ function CurrentShoppingList() {
     return (
         <div className="container">
             <h2>Список выбранных рецептов:</h2>
-            {selectedRecipes.length===0 ? <p>У вас нет выбранных рецептов :С</p> :
-                <div>
-                {selectedRecipes.map((recipe, index) => (
-                  <p key={index}> <button onClick={() => handleRemoveRecipe(recipe.id)}>{recipe.name}<FaMinus></FaMinus></button> </p>
+            {selectedRecipes.length === 0 ? <p>У вас нет выбранных рецептов :С</p> :
+                <div className="recipe-list">
+                    {selectedRecipes.map((recipe, index) => (
+                        <button key={index} onClick={() => handleRemoveRecipe(recipe.id)}>
+                            {recipe.name} <FaMinus className="minus-icon" />
+                        </button>
                     ))}
-                </div>}
+                </div>
+            }
             <h2>Список продуктов для покупки:</h2>
-            {shoppingList.length===0 ? <p>У вас нет продуктов, которые нужно купить :С</p>:
-            <ul>
-                {shoppingList.map((item) => (
-                    <li key={item.id}>
-                        {item.ingredient.name} : {item.quantity} {unitsHandle[item.ingredient.unit]}
-                    </li>
-                ))}
-            </ul>}
+            {shoppingList.length === 0 ? <p>У вас нет продуктов, которые нужно купить :С</p> :
+                <ul className="shopping-list">
+                    {shoppingList.map((item, index) => (
+                        <li key={index}>
+                            {item.ingredient.name} : {item.quantity} {unitsHandle[item.ingredient.unit]}
+                        </li>
+                    ))}
+                </ul>
+            }
         </div>
     );
 }

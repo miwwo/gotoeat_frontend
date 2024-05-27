@@ -1,0 +1,44 @@
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.recipe-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.recipe-list button {
+    background-color: #f1dacd;
+    font-weight: 600;
+    color: #a18562;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.recipe-list button:hover {
+    background-color: #a18562;
+    color:#f1dacd;
+}
+
+.minus-icon {
+    margin-left: 5px;
+}
+
+.shopping-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.shopping-list li {
+    margin-bottom: 10px;
+}

@@ -162,7 +162,7 @@ const RecipeForm = ({trigger, setTrigger, recipeCreateHandle, recipeToEdit, reci
     return trigger ? (
         <div className="popupForm">
             <div className="popupForm-inner">
-                <button className="popupForm-close" onClick={() => setTrigger(false)}>Закрыть</button>
+                <button className="popupForm-close rounded" style={{background:'slategrey',borderColor:'slategrey', color:'white'}} onClick={() => setTrigger(false)}>Закрыть</button>
                 <div>
                     <TextField style={{ width: '40%', marginRight: '10px' }}
                                label="Название"
@@ -216,14 +216,14 @@ const RecipeForm = ({trigger, setTrigger, recipeCreateHandle, recipeToEdit, reci
                                     {unitsHandle[ingredient.ingredient.unit]}
                                 </p>
                             )}
-                            <Button variant="contained" color="secondary" onClick={() => handleRemoveIngredient(index)}>
+                            <Button style={{background:'red', color:'white'}} onClick={() => handleRemoveIngredient(index)}>
                                 <FaMinus />
                             </Button>
                         </div>
                     ))}
                     {formErrors.listIngredients && <p style={{ color: 'red'}}>{formErrors.listIngredients}</p>}
 
-                    <Button variant="contained" color="primary" onClick={handleAddIngredient}>
+                    <Button style={{background:'seagreen',color:'white'}} onClick={handleAddIngredient}>
                         Добавить ингредиент
                     </Button>
                     <br></br>
@@ -233,11 +233,11 @@ const RecipeForm = ({trigger, setTrigger, recipeCreateHandle, recipeToEdit, reci
                     />
                     <br></br>
                     {recipeToEdit ? (
-                        <Button variant="contained" color="primary" onClick={handleUpdateSubmit}>
+                        <Button style={{background:'seagreen', color:'white'}} onClick={handleUpdateSubmit}>
                             Изменить рецепт
                         </Button>
                     ) : (
-                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                        <Button style={{background:'seagreen', color:'white'}} onClick={handleSubmit}>
                             Создать рецепт
                         </Button>
                     )}

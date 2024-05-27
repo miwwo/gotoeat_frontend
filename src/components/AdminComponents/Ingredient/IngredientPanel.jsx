@@ -4,12 +4,32 @@ import { Button, Dialog, DialogContent, DialogTitle, Table, TableBody, TableCell
 import IngredientForm from './IngredientForm';
 import { listIngredients, createIngredient, updateIngredient, deleteIngredient } from '../../../sevices/IngredientServise';
 import { useSelector } from "react-redux";
+import Pagination from "../../../pages/Pagination";
 
 const IngredientPanel = () => {
     const { token } = useSelector((state) => state.user);
     const [ingredients, setIngredients] = useState([]);
     const [selectedIngredient, setSelectedIngredient] = useState(null);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [ingredientsPerPage, setIngredientsPerPage] = useState(10);
+
+
+    const [searchQuery, setSearchQuery] = useState("");
     const [isFormOpen, setIsFormOpen] = useState(false);
+
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
+    const filteredIngredients = ingredients.filter(ingredient =>
+        ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const lastRecipeIndex = currentPage * ingredientsPerPage;
+    const firstRecipeIndex = lastRecipeIndex - ingredientsPerPage;
+    const currentIngredients = filteredIngredients.slice(firstRecipeIndex, lastRecipeIndex);
+
+
 
     useEffect(() => {
         const fetchIngredients = async () => {
@@ -54,6 +74,13 @@ const IngredientPanel = () => {
             <Button variant="contained" color="primary" onClick={handleAddClick}>
                 Добавить ингредиент
             </Button>
+            <input
+                type="text"
+                placeholder="Поиск рецептов"
+                value={searchQuery}
+                onChange={handleSearch}
+                className="form-control mb-4"
+            />
             <Table>
                 <TableHead>
                     <TableRow>
@@ -64,7 +91,7 @@ const IngredientPanel = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {ingredients.map((ingredient) => (
+                    {currentIngredients.map((ingredient) => (
                         <TableRow key={ingredient.id}>
                             <TableCell>{ingredient.id}</TableCell>
                             <TableCell>{ingredient.name}</TableCell>
@@ -91,6 +118,10 @@ const IngredientPanel = () => {
                     />
                 </DialogContent>
             </Dialog>
+            <Pagination totalRecord={filteredIngredients.length}
+                        recordPerPage={ingredientsPerPage}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}/>
         </div>
     );
 };

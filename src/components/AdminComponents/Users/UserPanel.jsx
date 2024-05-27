@@ -76,6 +76,13 @@ const UserPanel = () => {
 
     return (
         <div>
+            <input
+                type="text"
+                placeholder="Поиск рецептов"
+                value={searchQuery}
+                onChange={handleSearch}
+                className="form-control mb-4"
+            />
             <Table>
                 <TableHead>
                     <TableRow>

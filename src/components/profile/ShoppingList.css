@@ -42,3 +42,36 @@ h2 {
 .shopping-list li {
     margin-bottom: 10px;
 }
+/* Стили для списка продуктов для покупки */
+.shopping-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Стили для сообщения об отсутствии продуктов */
+.empty-message {
+    font-style: italic;
+    color: #777;
+}
+
+/* Стили для элемента списка продуктов */
+.shopping-list-item {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Стили для названия продукта */
+.item-name {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Стили для количества продукта */
+.item-quantity {
+    margin-right: 5px;
+}
+
+/* Стили для единицы измерения продукта */
+.item-unit {
+    font-style: italic;
+}

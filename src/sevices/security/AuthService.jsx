@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const REST_API_BASE_URL='http://localhost:8080/auth';
+const REST_API_BASE_URL='http://90.156.230.41:8080/auth';
 
 
 export const signUp = async (email, password) => {

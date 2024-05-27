@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const REST_API_BASE_URL = 'http://90.156.230.41:8080/';
+const REST_API_BASE_URL = 'http://90.156.230.41:8080';
 
 export const getShoppingList = async (token) => {
     try {

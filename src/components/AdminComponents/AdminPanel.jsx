@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Tabs, Tab, Box } from '@material-ui/core';
 import IngredientPanel from "./Ingredient/IngredientPanel";
 import UserPanel from "./Users/UserPanel";
+import './AdminPanel.css'; // Импортируем файл стилей
 
 const AdminPanel = () => {
     const [tabIndex, setTabIndex] = useState(0);
@@ -12,16 +13,21 @@ const AdminPanel = () => {
     };
 
     return (
-        <div>
-            <h1>Панель администратора</h1>
-            <Tabs value={tabIndex} onChange={handleChange}>
-                <Tab label="Ингредиенты" />
-                <Tab label="Пользователи" />
+        <div className="admin-panel-container">
+            <h1 className="admin-panel-header">Панель администратора</h1>
+            <Tabs
+                value={tabIndex}
+                onChange={handleChange}
+                classes={{ indicator: 'custom-tab-indicator' }}
+                className="admin-panel-tabs"
+            >
+                <Tab label="Ингредиенты" className="custom-tab" />
+                <Tab label="Пользователи" className="custom-tab" />
             </Tabs>
-            <Box hidden={tabIndex !== 0}>
+            <Box hidden={tabIndex !== 0} className="custom-tab-content">
                 <IngredientPanel />
             </Box>
-            <Box hidden={tabIndex !== 1}>
+            <Box hidden={tabIndex !== 1} className="custom-tab-content">
                 <UserPanel />
             </Box>
         </div>

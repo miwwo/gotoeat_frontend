@@ -1,0 +1,36 @@
+/* AdminPanel.css */
+
+.admin-panel-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.admin-panel-header {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.admin-panel-tabs {
+    margin-bottom: 20px;
+}
+
+.custom-tab {
+    font-weight: bold;
+}
+
+.custom-tab-indicator {
+    background-color: #4CAF50;
+}
+
+.custom-tab-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+

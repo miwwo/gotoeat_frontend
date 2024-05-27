@@ -5,6 +5,7 @@ import IngredientForm from './IngredientForm';
 import { listIngredients, createIngredient, updateIngredient, deleteIngredient } from '../../../sevices/IngredientServise';
 import { useSelector } from "react-redux";
 import Pagination from "../../../pages/Pagination";
+import './IngredientPanel.css'; // Импортируем файл стилей
 
 const IngredientPanel = () => {
     const { token } = useSelector((state) => state.user);
@@ -14,13 +15,13 @@ const IngredientPanel = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [ingredientsPerPage, setIngredientsPerPage] = useState(10);
 
-
     const [searchQuery, setSearchQuery] = useState("");
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
     };
+
     const filteredIngredients = ingredients.filter(ingredient =>
         ingredient.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -28,8 +29,6 @@ const IngredientPanel = () => {
     const lastRecipeIndex = currentPage * ingredientsPerPage;
     const firstRecipeIndex = lastRecipeIndex - ingredientsPerPage;
     const currentIngredients = filteredIngredients.slice(firstRecipeIndex, lastRecipeIndex);
-
-
 
     useEffect(() => {
         const fetchIngredients = async () => {
@@ -70,16 +69,17 @@ const IngredientPanel = () => {
     };
 
     return (
-        <div>
-            <Button variant="contained" color="primary" onClick={handleAddClick}>
+        <div className="ingredient-panel-container">
+            <h1 className="ingredient-panel-header">Ингредиенты</h1>
+            <Button variant="contained" className="custom-button mb-2" onClick={handleAddClick}>
                 Добавить ингредиент
             </Button>
             <input
                 type="text"
-                placeholder="Поиск рецептов"
+                placeholder="Поиск ингредиентов"
                 value={searchQuery}
                 onChange={handleSearch}
-                className="form-control mb-4"
+                className="search-input"
             />
             <Table>
                 <TableHead>
@@ -97,10 +97,10 @@ const IngredientPanel = () => {
                             <TableCell>{ingredient.name}</TableCell>
                             <TableCell>{ingredient.unit}</TableCell>
                             <TableCell>
-                                <Button variant="contained" color="primary" onClick={() => handleEditClick(ingredient)}>
+                                <Button variant="contained" className="custom-button" onClick={() => handleEditClick(ingredient)}>
                                     Обновить
                                 </Button>
-                                <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(ingredient.id)}>
+                                <Button variant="contained" className="custom-button-secondary" onClick={() => handleDeleteClick(ingredient.id)}>
                                     Удалить
                                 </Button>
                             </TableCell>

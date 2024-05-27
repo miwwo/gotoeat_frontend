@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, Dialog, DialogContent, DialogTitle, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import UserForm from './UserForm';
 import RecipePanel from './RecipePanel';
-import { listUsers,updateUser, banUser } from '../../../sevices/UserService';
+import { listUsers, updateUser, banUser } from '../../../sevices/UserService';
 import { useSelector } from "react-redux";
 import Pagination from "../../../pages/Pagination";
+import './UserPanel.css'; // Импортируем файл стилей
 
 const UserPanel = () => {
-    const { token, user } = useSelector((state) => state.user);
+    const { token } = useSelector((state) => state.user);
     const [users, setUsers] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +30,7 @@ const UserPanel = () => {
         };
         fetchUsers();
     }, [token, reloading]);
+
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
     };
@@ -40,7 +42,6 @@ const UserPanel = () => {
     const lastRecipeIndex = currentPage * usersPerPage;
     const firstRecipeIndex = lastRecipeIndex - usersPerPage;
     const currentUsers = filteredUsers.slice(firstRecipeIndex, lastRecipeIndex);
-
 
     const handleEditClick = (user) => {
         setSelectedUser(user);
@@ -75,13 +76,14 @@ const UserPanel = () => {
     };
 
     return (
-        <div>
+        <div className="user-panel-container">
+            <h1 className="user-panel-header">Пользователи</h1>
             <input
                 type="text"
-                placeholder="Поиск рецептов"
+                placeholder="Поиск пользователей"
                 value={searchQuery}
                 onChange={handleSearch}
-                className="form-control mb-4"
+                className="search-input"
             />
             <Table>
                 <TableHead>
@@ -97,13 +99,13 @@ const UserPanel = () => {
                             <TableCell>{_user.id}</TableCell>
                             <TableCell>{_user.email}</TableCell>
                             <TableCell>
-                                <Button variant="contained" color="primary" onClick={() => handleEditClick(_user)}>
+                                <Button variant="contained" className="custom-button" onClick={() => handleEditClick(_user)}>
                                     Обновить
                                 </Button>
-                                <Button variant="contained" color="secondary" onClick={() => handleBanClick(_user.id)}>
-                                    {_user.enabled===true? 'Бан' : 'Разбан' }
+                                <Button variant="contained" className="custom-button-secondary" onClick={() => handleBanClick(_user.id)}>
+                                    {_user.enabled ? 'Бан' : 'Разбан' }
                                 </Button>
-                                <Button variant="contained" color="default" onClick={() => handleViewRecipes(_user)}>
+                                <Button variant="contained" className="custom-button-default" onClick={() => handleViewRecipes(_user)}>
                                     Рецепты пользователя
                                 </Button>
                             </TableCell>
@@ -112,7 +114,7 @@ const UserPanel = () => {
                 </TableBody>
             </Table>
             <Dialog open={isFormOpen} onClose={handleClose}>
-                <DialogTitle>{'Edit User'}</DialogTitle>
+                <DialogTitle>{'Обновить пользователя'}</DialogTitle>
                 <DialogContent>
                     <UserForm
                         user={selectedUser}
@@ -122,7 +124,7 @@ const UserPanel = () => {
                 </DialogContent>
             </Dialog>
             <Dialog open={isRecipePanelOpen} onClose={handleBackToUsers}>
-                <DialogTitle>User Recipes</DialogTitle>
+                <DialogTitle>Рецепты пользователя</DialogTitle>
                 <DialogContent>
                     {selectedUser && <RecipePanel userId={selectedUser.id} handleBack={handleBackToUsers} />}
                 </DialogContent>

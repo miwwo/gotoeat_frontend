@@ -1,0 +1,32 @@
+/* IngredientPanel.css */
+
+.ingredient-panel-container {
+    margin: 20px;
+}
+
+.ingredient-panel-header {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-button {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    margin-right: 10px;
+}
+
+.custom-button-secondary {
+    background-color: #f44336 !important;
+    color: white !important;
+    margin-right: 10px;
+}
+
+.search-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}

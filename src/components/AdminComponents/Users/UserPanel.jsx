@@ -99,10 +99,10 @@ const UserPanel = () => {
                             <TableCell>{_user.id}</TableCell>
                             <TableCell>{_user.email}</TableCell>
                             <TableCell>
-                                <Button variant="contained" className="custom-button" onClick={() => handleEditClick(_user)}>
+                                <Button variant="contained" className="custom-button me-2" onClick={() => handleEditClick(_user)}>
                                     Обновить
                                 </Button>
-                                <Button variant="contained" className="custom-button-secondary" onClick={() => handleBanClick(_user.id)}>
+                                <Button variant="contained" className="custom-button-secondary me-2" onClick={() => handleBanClick(_user.id)}>
                                     {_user.enabled ? 'Бан' : 'Разбан' }
                                 </Button>
                                 <Button variant="contained" className="custom-button-default" onClick={() => handleViewRecipes(_user)}>

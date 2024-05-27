@@ -97,7 +97,7 @@ const IngredientPanel = () => {
                             <TableCell>{ingredient.name}</TableCell>
                             <TableCell>{ingredient.unit}</TableCell>
                             <TableCell>
-                                <Button variant="contained" className="custom-button" onClick={() => handleEditClick(ingredient)}>
+                                <Button variant="contained" className="custom-button me-2" onClick={() => handleEditClick(ingredient)}>
                                     Обновить
                                 </Button>
                                 <Button variant="contained" className="custom-button-secondary" onClick={() => handleDeleteClick(ingredient.id)}>

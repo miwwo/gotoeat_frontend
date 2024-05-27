@@ -28,7 +28,7 @@ const Nav = (props) => {
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 {(props.roles.includes('ROLE_ADMIN')) &&
                     <li className="nav-item active">
-                        <Link to="/" className="nav-link">Панель администратора</Link>
+                        <Link to="/admin" className="nav-link">Панель администратора</Link>
                     </li>
                 }
                 <li className="nav-item active">

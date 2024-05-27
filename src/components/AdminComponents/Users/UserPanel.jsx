@@ -90,6 +90,7 @@ const UserPanel = () => {
                     <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Email</TableCell>
+                        <TableCell>Роль</TableCell>
                         <TableCell>Действия</TableCell>
                     </TableRow>
                 </TableHead>
@@ -98,6 +99,7 @@ const UserPanel = () => {
                         <TableRow key={_user.id}>
                             <TableCell>{_user.id}</TableCell>
                             <TableCell>{_user.email}</TableCell>
+                            <TableCell>{_user.roles[0].name}</TableCell>
                             <TableCell>
                                 <Button variant="contained" className="custom-button me-2" onClick={() => handleEditClick(_user)}>
                                     Обновить

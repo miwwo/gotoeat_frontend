@@ -24,7 +24,7 @@ const RecipePanel = ({ userId, handleBack }) => {
             setRecipes(data);
         };
         fetchRecipes();
-    }, [token, userId]);
+    }, [token, userId,recipes]);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -45,7 +45,7 @@ const RecipePanel = ({ userId, handleBack }) => {
 
     const handleSubmit = async (recipe) => {
         if (recipe.id) {
-            const updatedRecipe = await updateRecipe(token, userId, recipe);
+            const updatedRecipe = await updateRecipe(token, recipe);
             setRecipes(prevRecipes => prevRecipes.map(r => r.id === updatedRecipe.id ? updatedRecipe : r));
         }
         setIsFormOpen(false);

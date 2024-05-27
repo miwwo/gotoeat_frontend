@@ -12,7 +12,7 @@ const RecipeList = () => {
 
     const [recipes, setRecipes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [recipesPerPage, setRecipePerPage] = useState(10);
+    const [recipesPerPage, setRecipePerPage] = useState(9);
 
     const [recipeCreateForm, setRecipeCreateForm] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -69,7 +69,7 @@ const RecipeList = () => {
     const currentRecipes = filteredRecipes.slice(firstRecipeIndex, lastRecipeIndex);
 
     return (
-        <div className="container">
+        <div className="container-fluid ">
             <button onClick={() => {setRecipeCreateForm(true); }} className="btn btn-create-recipe">Создать рецепт</button>
             <RecipeForm
                 trigger = {recipeCreateForm}
@@ -87,10 +87,10 @@ const RecipeList = () => {
                         onChange={handleSearch}
                         className="form-control mb-4"
                     />
-                    <div className="container mt-4">
+                    <div className="container-fluid mt-4">
                         <div className="row">
                             {currentRecipes.map(recipe => (
-                                <div className="col-md-6 mb-4" key={recipe.id}>
+                                <div className="col-md-4 mb-2" key={recipe.id}>
                                     <Recipe recipe={recipe} addRecipeHandle={handleRecipeAdd} className="recipe-card" />
                                 </div>
                             ))}

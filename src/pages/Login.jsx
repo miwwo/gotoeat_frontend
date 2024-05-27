@@ -51,14 +51,10 @@ const Login = (props) => {
             <form onSubmit={submit} className="login-form">
                 <h1 className="h3 mb-3 fw-normal login-header">Вход в аккаунт</h1>
                 <input type="text" className="form-control login-input" placeholder="Email" value={email} required
-                       onChange={e => setEmail(e.target.value)}
-                />
-
+                       onChange={e => setEmail(e.target.value)}/>
                 <input type="password" className="form-control login-input" placeholder="Пароль" value={password} required
-                       onChange={e => setPassword(e.target.value)}
-                />
-
-                <button className="w-100 btn btn-lg btn-primary login-button" type="submit">Зайти</button>
+                       onChange={e => setPassword(e.target.value)}/>
+                <button className="w-100 btn btn-lg btn-primary login-button" type="submit">Войти</button>
             </form>
             {errMsg && <p className="error">{errMsg}</p>}
             <p className="register-link">

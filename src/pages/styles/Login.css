@@ -1,0 +1,67 @@
+.form-signin {
+    max-width: 400px;
+    margin: auto;
+    padding: 1rem;
+    background-color: #f5f5dc; /* светлый бежевый фон */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-header {
+    color: #6b4f4f; /* темный пастельный цвет для заголовка */
+}
+
+.login-input {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Округляем углы */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-clip: padding-box; /* Убедимся, что границы округляются */
+}
+
+.login-input:focus {
+    border-color: #c9a87c; /* цвет границы при фокусе */
+    box-shadow: 0 0 5px rgba(201, 168, 124, 0.5); /* тень при фокусе */
+    outline: none; /* убрать стандартное голубое выделение */
+}
+
+.login-button {
+    background-color: #deb887; /* цвет кнопки */
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #c9a87c; /* цвет кнопки при наведении */
+}
+
+.error {
+    color: red !important;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.register-link {
+    margin-top: 1rem;
+    color: #6b4f4f; /* цвет текста */
+}
+
+.register-link a {
+    color: #deb887; /* цвет ссылки */
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

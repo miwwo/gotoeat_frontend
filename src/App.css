@@ -1,29 +1,69 @@
+/* Добавьте эти стили в ваш App.css */
+
 .form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
+  max-width: 400px;
   margin: auto;
+  padding: 1rem;
+  background-color: #f5f5dc; /* светлый бежевый фон */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.form-signin .checkbox {
-  font-weight: 400;
+
+.form-signin form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.form-signin h1 {
+  color: #6b4f4f; /* темный пастельный цвет для заголовка */
+}
+
 .form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Округляем углы */
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-clip: padding-box; /* Убедимся, что границы округляются */
 }
+
 .form-signin .form-control:focus {
-  z-index: 2;
+  border-color: #c9a87c; /* цвет границы при фокусе */
+  box-shadow: 0 0 5px rgba(201, 168, 124, 0.5); /* тень при фокусе */
+  outline: none; /* убрать стандартное голубое выделение */
 }
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+
+.form-signin .btn {
+  background-color: #deb887; /* цвет кнопки */
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem 0;
+  transition: background-color 0.3s;
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+
+.form-signin .btn:hover {
+  background-color: #c9a87c; /* цвет кнопки при наведении */
+}
+
+.error {
+  color: red !important;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-signin p {
+  margin-top: 1rem;
+  color: #6b4f4f; /* цвет текста */
+}
+
+.form-signin p a {
+  color: #deb887; /* цвет ссылки */
+  text-decoration: none;
+}
+
+.form-signin p a:hover {
+  text-decoration: underline;
 }

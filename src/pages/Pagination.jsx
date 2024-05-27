@@ -1,5 +1,5 @@
 import React from 'react'
-import './Pagination.css'
+import './styles/Pagination.css'
 
 const Pagination = ({totalRecord, recordPerPage, setCurrentPage, currentPage}) => {
     let pages = [];

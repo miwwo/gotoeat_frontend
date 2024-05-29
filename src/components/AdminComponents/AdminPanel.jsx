@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Tabs, Tab, Box } from '@material-ui/core';
 import IngredientPanel from "./Ingredient/IngredientPanel";
 import UserPanel from "./Users/UserPanel";
-import './AdminPanel.css'; // Импортируем файл стилей
+import './styles/AdminPanel.css'; // Импортируем файл стилей
 
 const AdminPanel = () => {
     const [tabIndex, setTabIndex] = useState(0);

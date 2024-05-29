@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getShoppingList, removeIngredientFromShoppingList } from "../../sevices/ShoppingListService";
 import { useSelector } from 'react-redux';
 import { FaMinus } from "react-icons/fa";
-import "./ShoppingList.css";
+import "./styles/ShoppingList.css";
 import { Button, Modal } from "react-bootstrap";
 import RecipeWindow from "../RecipeComponents/RecipeWindow"; // Импорт файла со стилями
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPlus } from "react-icons/fa";
 import { Button } from "react-bootstrap";
-import "./RecipeWindow.css"; // Подключаем файл со стилями
+import "./styles/RecipeWindow.css"; // Подключаем файл со стилями
 
 const units = {
     "GRAM": "g",

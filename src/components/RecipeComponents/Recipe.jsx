@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Modal } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 import RecipeWindow from './RecipeWindow'; // Импорт компонента с полной информацией о рецепте
-import './Recipe.css';
+import './styles/Recipe.css';
 
 const Recipe = ({ recipe, addRecipeHandle, recipeControl }) => {
     const [showModal, setShowModal] = useState(false);

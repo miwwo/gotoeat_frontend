@@ -5,7 +5,7 @@ import IngredientForm from './IngredientForm';
 import { listIngredients, createIngredient, updateIngredient, deleteIngredient } from '../../../sevices/IngredientServise';
 import { useSelector } from "react-redux";
 import Pagination from "../../../pages/Pagination";
-import './IngredientPanel.css'; // Импортируем файл стилей
+import '../styles/IngredientPanel.css'; // Импортируем файл стилей
 
 const IngredientPanel = () => {
     const { token } = useSelector((state) => state.user);

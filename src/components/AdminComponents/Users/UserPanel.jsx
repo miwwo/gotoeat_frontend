@@ -6,7 +6,7 @@ import RecipePanel from './RecipePanel';
 import { listUsers, updateUser, banUser } from '../../../sevices/UserService';
 import { useSelector } from "react-redux";
 import Pagination from "../../../pages/Pagination";
-import './UserPanel.css'; // Импортируем файл стилей
+import '../styles/UserPanel.css'; // Импортируем файл стилей
 
 const UserPanel = () => {
     const { token } = useSelector((state) => state.user);

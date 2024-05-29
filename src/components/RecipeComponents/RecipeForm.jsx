@@ -3,7 +3,7 @@ import {TextField, Button, FormControl, Checkbox, FormControlLabel} from '@mater
 import { Autocomplete } from '@material-ui/lab';
 import {createRecipe, listIngredients, updateRecipe} from "../../sevices/RecipeService";
 import { useSelector } from "react-redux";
-import "./RecipeCreateForm.css";
+import "./styles/RecipeCreateForm.css";
 import { FaMinus } from "react-icons/fa";
 
 const RecipeForm = ({trigger, setTrigger, recipeCreateHandle, recipeToEdit, recipeUpdateHandle}) => {

@@ -7,7 +7,7 @@ import { removeRecipe } from '../../sevices/RecipeService';
 import Pagination from '../../pages/Pagination';
 import Recipe from '../RecipeComponents/Recipe';
 import { Button } from 'react-bootstrap';
-import './UserRecipe.css';
+import './styles/UserRecipe.css';
 function UserRecipe() {
     const { token } = useSelector((state) => state.user);
 

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import RecipeForm from "./RecipeForm";
 import Pagination from "../../pages/Pagination";
 import { addRecipeToShoppingList } from "../../sevices/ShoppingListService";
-import "./RecipeList.css";
+import "./styles/RecipeList.css";
 
 const RecipeList = () => {
     const { token } = useSelector((state) => state.user);

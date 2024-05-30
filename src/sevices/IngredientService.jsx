@@ -5,7 +5,7 @@ import apiAddress from "./const.jsx";
 const REST_API_BASE_URL='http://' + apiAddress + ':8080';
 
 export const listIngredients = async (token) => {
-    const response = await axios.get(`${REST_API_BASE_URL}/ingredients`, {
+    const response = await axios.get(`${REST_API_BASE_URL}/profile/ingredients`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

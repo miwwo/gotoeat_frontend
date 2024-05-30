@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Dialog, DialogContent, DialogTitle, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import IngredientForm from './IngredientForm';
-import { listIngredients, createIngredient, updateIngredient, deleteIngredient } from '../../../sevices/IngredientServise';
+import { listIngredients, createIngredient, updateIngredient, deleteIngredient } from '../../../sevices/IngredientService';
 import { useSelector } from "react-redux";
 import Pagination from "../../../pages/Pagination";
 import '../styles/IngredientPanel.css'; // Импортируем файл стилей

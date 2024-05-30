@@ -1,7 +1,8 @@
 // services/IngredientService.js
 import axios from 'axios';
+import apiAddress from "./const.jsx";
 
-const REST_API_BASE_URL = 'http://90.156.230.41:8080';
+const REST_API_BASE_URL='http://' + apiAddress + ':8080';
 
 export const listIngredients = async (token) => {
     const response = await axios.get(`${REST_API_BASE_URL}/ingredients`, {
